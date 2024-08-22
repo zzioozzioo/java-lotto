@@ -76,17 +76,17 @@
 
 ## 출력 기능
 - 사용자 로또 번호 출력 기능
-  - **printUserNumber** 메서드 구현
-    - 중복되지 않는 숫자 6개를 담은 리스트 userNumberList를 매개변수로 받아 출력
+  - **displayUserNumber** 메서드 구현
+    - 사용자 객체의 userNumberList를 받아 출력
       - 숫자는 오름차순으로 정렬
 
 - 당첨 내역 출력 기능
-  - **printWinningState** 메서드 구현
+  - **displayWinningState** 메서드 구현
     - 랭크 객체를 매개변수로 받아 당첨 내역 출력
       - 5등부터 1등까지 차례대로 출력 
 
 - 수익률 출력 기능
-  - **printRateOfReturn** 메서드 구현
+  - **displayRateOfReturn** 메서드 구현
     - 사용자 객체의 수익률을 출력
 
 ## 예외 처리 기능
