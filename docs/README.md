@@ -13,6 +13,9 @@
         - **isDigit** 메서드 구현
           - 사용자 입력값이 숫자가 맞는지 판별
           - 잘못된 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
+        - **isCorrectLength** 메서드 구현
+          - 사용자 입력값의 개수가 6개가 맞는지 판별
+          - 잘못된 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
         - **isInRange** 메서드 구현
           - 사용자 입력값이 숫자 범위에 포함된 값인지 판별
           - 범위에서 벗어난 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
