@@ -10,13 +10,13 @@
     - 선택한 숫자가 기존의 숫자와 중복이 아닌지 확인
       - **validateDuplicateWinningNumber** 구현
         - 사용자 입력값이 1~45 사이의 서로 다른 여섯 자리 숫자인지 판별
-        - **IsDigit** 메서드 구현
+        - **isDigit** 메서드 구현
           - 사용자 입력값이 숫자가 맞는지 판별
           - 잘못된 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
-        - **IsInRange** 메서드 구현
+        - **isInRange** 메서드 구현
           - 사용자 입력값이 숫자 범위에 포함된 값인지 판별
           - 범위에서 벗어난 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
-        - **IsDuplicated** 메서드 구현
+        - **isDuplicated** 메서드 구현
           - 사용자 입력값에 중복이 없는지 판별
           - 중복된 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
       - **validateDuplicateBonusNumber** 구현
@@ -26,15 +26,15 @@
     - 보너스 숫자는 로또 객체의 bonusNumber에 저장
 
 - 로또 구입 금액 입력 기능
-  - **userInputAmount** 메서드 구현
+  - **getUserInputAmount** 메서드 구현
     - `camp.nextstep.edu.missionutils.Console`의 `readLine()`을 활용
     - 입력값이 올바른 값인지 확인
     - **validateInputAmount** 메서드 구현
       - 사용자 입력값이 숫자가 맞는지 판별
-        - **IsDigit** 메서드 구현
+        - **isDigit** 메서드 구현
           - 범위에서 벗어난 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
       - 사용자 입력값이 1,000~100,000 사이의 값인지 판별
-        - **IsInRange** 메서드 구현
+        - **isInRange** 메서드 구현
           - 범위에서 벗어난 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
       - 입력받은 금액이 한 장당 금액으로 나누어 떨어지는지 판별
         - **hasChange** 메서드 구현
@@ -57,7 +57,7 @@
 
 - 당첨 내역 계산 기능
   - **calculateWinning** 메서드 구현
-    - 사용자 객체와 로또 객체를 매개변수로 받아 로또 번호 리스트와 당첨 번호를 비교
+    - 사용자 객체와 로또 객체를 매개변수로 받아 사용자 번호 리스트(userNumberList)와 당첨 번호(winningNumberList)를 비교
       - 로또 번호 리스트의 사이즈(즉 로또 수량)만큼 반복
       - 6개 번호가 일치: 1등
       - 5개 번호 + 보너스 숫자 일치: 2등
