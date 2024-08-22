@@ -7,10 +7,14 @@ public class Input {
 
     private String buyAmount;
 
+    // 변경 전 당첨 번호, 보너스 숫자
     private String winningNumber;
-    private String bonusNumber;
+    private String bonusNumberString;
 
-    List<Integer> winningNumberList = new ArrayList<>(6);
+    // 변경 후 당첨 번호, 보너스 숫자
+    private List<Integer> winningNumberList = new ArrayList<>(6);
+
+    private int bonusNumber;
 
     public Input() {
     }
@@ -31,12 +35,12 @@ public class Input {
         this.winningNumber = winningNumber;
     }
 
-    public String getBonusNumber() {
-        return bonusNumber;
+    public String getBonusNumberString() {
+        return bonusNumberString;
     }
 
-    public void setBonusNumber(String bonusNumber) {
-        this.bonusNumber = bonusNumber;
+    public void setBonusNumberString(String bonusNumberString) {
+        this.bonusNumberString = bonusNumberString;
     }
 
     public List<Integer> getWinningNumberList() {
@@ -45,6 +49,14 @@ public class Input {
 
     public void setWinningNumberList(List<Integer> winningNumberList) {
         this.winningNumberList = winningNumberList;
+    }
+
+    public int getBonusNumber() {
+        return bonusNumber;
+    }
+
+    public void setBonusNumber(int bonusNumber) {
+        this.bonusNumber = bonusNumber;
     }
 
 }
