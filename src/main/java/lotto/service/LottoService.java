@@ -16,6 +16,8 @@ public class LottoService {
 
     Validator validator = new Validator();
 
+    // TODO: 메서드명 다시 고민해보기
+    //  아니면 validate하는 코드를 메서드로 따로 빼야 하나? 그건 좀 아닌 것 같은디,,
     public void lottoNumberToList() {
         String winningNumber = input.getWinningNumber();
         String[] winningNumberArr = winningNumber.split(",");
@@ -27,6 +29,15 @@ public class LottoService {
         input.setWinningNumberList(winningNumberList);
 
         validator.validateDuplicateWinningNumber();
+    }
+
+    public void bonusNumberToInt() {
+        String bonusNumberString = input.getBonusNumberString();
+        int bonusNumber = Integer.parseInt(bonusNumberString);
+
+        input.setBonusNumber(bonusNumber);
+
+        validator.validateDuplicateBonusNumber();
     }
 
 }
