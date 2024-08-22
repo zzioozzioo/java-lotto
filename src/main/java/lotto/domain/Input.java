@@ -7,8 +7,10 @@ public class Input {
 
     private String buyAmount;
 
-    private List<String> winningNumberList = new ArrayList<>();
+    private String winningNumber;
     private String bonusNumber;
+
+    List<Integer> winningNumberList = new ArrayList<>(6);
 
     public Input() {
     }
@@ -21,12 +23,12 @@ public class Input {
         this.buyAmount = buyAmount;
     }
 
-    public List<String> getWinningNumberList() {
-        return winningNumberList;
+    public String getWinningNumber() {
+        return winningNumber;
     }
 
-    public void setWinningNumberList(List<String> winningNumberList) {
-        this.winningNumberList = winningNumberList;
+    public void setWinningNumber(String winningNumber) {
+        this.winningNumber = winningNumber;
     }
 
     public String getBonusNumber() {
@@ -36,4 +38,13 @@ public class Input {
     public void setBonusNumber(String bonusNumber) {
         this.bonusNumber = bonusNumber;
     }
+
+    public List<Integer> getWinningNumberList() {
+        return winningNumberList;
+    }
+
+    public void setWinningNumberList(List<Integer> winningNumberList) {
+        this.winningNumberList = winningNumberList;
+    }
+
 }
