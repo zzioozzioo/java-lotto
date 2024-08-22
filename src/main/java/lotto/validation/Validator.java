@@ -2,6 +2,8 @@ package lotto.validation;
 
 import lotto.domain.Input;
 
+import java.util.List;
+
 public class Validator {
 
     private Input input;
@@ -29,6 +31,12 @@ public class Validator {
 
     // 보너스 숫자에 대한 validation
     public void validateDuplicateBonusNumber() {
+        // getWinningNumberList해서 해당 숫자가 있는지!! contains 쓰면 될 듯
+        List<Integer> list = input.getWinningNumberList();
+
+        if (list.contains(input.getBonusNumber())) {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
