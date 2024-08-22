@@ -17,6 +17,7 @@ public class DisplayResult {
     }
 
     // TODO: 당첨 내역 출력 기능
+    // TODO: 메서드명 다시 고민해보기
     public void displayWinningState() {
         List<Integer> rankList = rank.getRankList();
         Collections.sort(rankList);
@@ -28,11 +29,11 @@ public class DisplayResult {
         System.out.println(++num + "개 일치 (1,500,000원) - " + rankList.get(--index) + "개");
         System.out.println(num + "개 일치, 보너스 볼 일치 (30,000,000원) - " + rankList.get(--index) + "개");
         System.out.println(++num + "개 일치 (2,000,000,000원) - " + rankList.get(--index) + "개");
-
     }
 
     // TODO: 수익률 출력 기능
     public void displayRateOfReturn() {
+        System.out.println("총 수익률은 " + user.getRateOfReturn() + "%입니다.");
     }
 
 }
