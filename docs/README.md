@@ -10,7 +10,7 @@
     - 선택한 숫자가 기존의 숫자와 중복이 아닌지 확인
       - **validateDuplicateWinningNumber** 구현
         - 사용자 입력값이 1~45 사이의 서로 다른 여섯 자리 숫자인지 판별
-        - **isDigit** 메서드 구현
+        - **isNumeric** 메서드 구현
           - 사용자 입력값이 숫자가 맞는지 판별
           - 잘못된 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
         - **isCorrectLength** 메서드 구현
@@ -34,7 +34,7 @@
     - 입력값이 올바른 값인지 확인
     - **validateInputAmount** 메서드 구현
       - 사용자 입력값이 숫자가 맞는지 판별
-        - **isDigit** 메서드 구현
+        - **isNumeric** 메서드 구현
           - 범위에서 벗어난 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
       - 사용자 입력값이 1,000~100,000 사이의 값인지 판별
         - **isInRange** 메서드 구현
