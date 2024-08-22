@@ -8,6 +8,9 @@ public class User {
     private int winnings;
     private double rateOfReturn;
 
+    public User() {
+    }
+
     public int getBuyAmount() {
         return buyAmount;
     }
