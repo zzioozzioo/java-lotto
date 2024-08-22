@@ -31,6 +31,13 @@ public class CalcService {
         // TODO: 로또 번호 리스트와 당첨 번호 비교 로직 구현
     }
 
-
+    /**
+     * 수익률 계산 기능
+     */
+    public void caculateRateOfReturn() {
+        int amount = user.getBuyAmount();
+        // TODO: 소수점 둘째 자리에서 반올림
+        double rateOfReturn = (double)amount / user.getWinnings();
+    }
 
 }
