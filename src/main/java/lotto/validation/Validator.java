@@ -11,12 +11,14 @@ public class Validator {
      */
     // 6개의 당첨 번호에 대한 validation
     public void validateDuplicateWinningNumber() {
-        isDigit(input.getBuyAmount());
+        isDigit();
         isInRange();
         isDuplicated();
+
+        // TODO: 사용자가 입력한 숫자가 6개인지 여부 체크하는 validation method 만들기
     }
 
-    public void isDigit(String buyAmount) {
+    public void isDigit() {
     }
 
     public void isInRange() {
@@ -33,7 +35,7 @@ public class Validator {
      * 로또 구입 금액 입력 기능 예외 처리
      */
     public void validateInputAmount() {
-        isDigit(input.getBuyAmount());
+        isDigit();
         isInRange();
         hasChange();
     }
