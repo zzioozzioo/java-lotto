@@ -23,26 +23,26 @@ public class Validator {
     /**
      * 당첨 번호 입력 기능 예외 처리
      */
-    public void validateWinningNumber() {
-        isCorrectLength();
-        isInRange();
-        isWinningNumberDuplicated();
+    public void validateWinningNumber(List<Integer> list) {
+        isCorrectLength(list);
+        isInRange(list);
+        isWinningNumberDuplicated(list);
     }
 
-    public void isCorrectLength() {
-        if (input.getWinningNumberList().size() != 6) {
+    public void isCorrectLength(List<Integer> list) {
+        if (list.size() != 6) {
             throw new IllegalArgumentException();
         }
     }
 
-    public void isInRange() {
-        if (!input.getWinningNumberList().stream().allMatch(digit -> digit >= 1 && digit <= 45)) {
+    public void isInRange(List<Integer> list) {
+        if (!list.stream().allMatch(digit -> digit >= 1 && digit <= 45)) {
             throw new IllegalArgumentException();
         }
     }
 
-    public void isWinningNumberDuplicated() {
-        if (input.getWinningNumberList().stream().distinct().count() != input.getWinningNumberList().size()) {
+    public void isWinningNumberDuplicated(List<Integer> list) {
+        if (list.stream().distinct().count() != list.size()) {
             throw new IllegalArgumentException();
         }
     }
