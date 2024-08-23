@@ -35,7 +35,7 @@
     - **validateInputAmount** 메서드 구현
       - 사용자 입력값이 숫자가 맞는지 판별
         - **isNumeric** 메서드 구현
-          - 범위에서 벗어난 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
+          - 숫자가 아닌 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
       - 사용자 입력값이 1,000~100,000 사이의 값인지 판별
         - **isInRange** 메서드 구현
           - 범위에서 벗어난 값을 입력한 경우 `IllegalArgumentException` 예외 발생시킨 후 애플리케이션 종료
