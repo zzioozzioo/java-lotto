@@ -5,15 +5,10 @@ import lotto.domain.User;
 
 import java.util.List;
 
-// TODO: 계산 기능
 public class CalcService {
 
     private User user;
     private Winning winning;
-
-    public CalcService(User user) {
-        this.user = user;
-    }
 
     /**
      * 로또 수량 계산 기능
@@ -36,8 +31,10 @@ public class CalcService {
      */
     public void caculateRateOfReturn() {
         int amount = user.getBuyAmount();
-        // TODO: 소수점 둘째 자리에서 반올림
-        double rateOfReturn = (double)amount / user.getWinnings();
-    }
 
+        double rateOfReturn = (double)amount / user.getWinnings();
+        rateOfReturn = Math.round(rateOfReturn * 100) / 100.0;
+
+        user.setRateOfReturn(rateOfReturn);
+    }
 }
