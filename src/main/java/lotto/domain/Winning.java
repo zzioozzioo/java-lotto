@@ -8,7 +8,8 @@ public class Winning {
     // TODO: setter 말고 constructor 사용하도록 변경해보기
 
     private List<Integer> winningNumberList = new ArrayList<>();
-    private int bonusNumber; // 새로 알게 된 점: final은 초기화가 필수인 듯
+    private int bonusNumber;
+
 
     public List<Integer> getWinningNumberList() {
         return winningNumberList;
@@ -25,5 +26,5 @@ public class Winning {
     public void setBonusNumber(int bonusNumber) {
         this.bonusNumber = bonusNumber;
     }
-
+    // 등수별(1~5등) 당첨 개수
 }
