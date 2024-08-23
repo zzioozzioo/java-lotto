@@ -21,6 +21,6 @@ public class InputMessage {
 
     // TODO: 로또 구입 금액 입력 기능 구현
     public void getUserInputAmount() {
-        input.setBuyAmount(readLine());
+        input.setBuyAmountString(readLine());
     }
 }
