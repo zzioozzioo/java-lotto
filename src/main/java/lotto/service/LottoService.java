@@ -2,17 +2,18 @@ package lotto.service;
 
 import lotto.domain.Input;
 import lotto.domain.Lotto;
+import lotto.domain.User;
 import lotto.validation.Validator;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-// TODO: 당첨 번호 입력값 validate해서 로또 객체에 저장
 public class LottoService {
 
     private Input input;
     private Lotto lotto;
+    private User user;
 
     Validator validator = new Validator();
 
@@ -48,6 +49,7 @@ public class LottoService {
         input.setWinningNumberList(winningNumberList);
 
         validator.validateWinningNumber();
+        lotto.setWinningNumberList(winningNumberList);
     }
 
     public void bonusNumberToInt() {
@@ -58,6 +60,7 @@ public class LottoService {
         input.setBonusNumber(bonusNumber);
 
         validator.validateBonusNumber();
+        lotto.setBonusNumber(bonusNumber);
     }
 
     public void buyAmountToInt() {
@@ -68,6 +71,7 @@ public class LottoService {
         input.setBuyAmount(buyAmount);
 
         validator.validateInputAmount();
+        user.setBuyAmount(buyAmount);
     }
 
 }
