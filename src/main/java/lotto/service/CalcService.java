@@ -1,6 +1,6 @@
 package lotto.service;
 
-import lotto.domain.Lotto;
+import lotto.domain.Winning;
 import lotto.domain.User;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class CalcService {
 
     private User user;
-    private Lotto lotto;
+    private Winning winning;
 
     public CalcService(User user) {
         this.user = user;
@@ -27,7 +27,7 @@ public class CalcService {
      * 당첨 내역 계산 기능
      */
     public void calculateWinning() {
-        List<Integer> winningNumberList = lotto.getWinningNumberList();
+        List<Integer> winningNumberList = winning.getWinningNumberList();
         // TODO: 로또 번호 리스트와 당첨 번호 비교 로직 구현
     }
 

@@ -1,7 +1,7 @@
 package lotto.service;
 
 import lotto.domain.Input;
-import lotto.domain.Lotto;
+import lotto.domain.Winning;
 import lotto.domain.User;
 import lotto.validation.Validator;
 
@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 public class LottoService {
 
     private Input input;
-    private Lotto lotto;
+    private Winning winning;
     private User user;
 
     Validator validator = new Validator();
@@ -49,7 +49,7 @@ public class LottoService {
         input.setWinningNumberList(winningNumberList);
 
         validator.validateWinningNumber();
-        lotto.setWinningNumberList(winningNumberList);
+        winning.setWinningNumberList(winningNumberList);
     }
 
     public void bonusNumberToInt() {
@@ -60,7 +60,7 @@ public class LottoService {
         input.setBonusNumber(bonusNumber);
 
         validator.validateBonusNumber();
-        lotto.setBonusNumber(bonusNumber);
+        winning.setBonusNumber(bonusNumber);
     }
 
     public void buyAmountToInt() {
