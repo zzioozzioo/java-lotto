@@ -63,6 +63,10 @@ public class LottoService {
         return list;
     }
 
+    public int convertStringToInt(String str) {
+        int num = Integer.parseInt(str);
+        return num;
+    }
 
 //    public void bonusNumberToInt() {
 //        String bonusNumberString = input.getBonusNumberString();
