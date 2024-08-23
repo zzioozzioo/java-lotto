@@ -1,15 +1,15 @@
 package lotto.validation;
 
-import lotto.domain.Input;
-
 import java.util.List;
+
+import lotto.domain.Winning;
 
 public class Validator {
 
-    private Input input;
-
     // TODO: input.getWinningNumberList이 중복되는데 클래스 전역 변수로 사용해도 되나..? 그건 좀 그렇겠지
     // TODO: isNumeric()에서 문자열->문자 변환 다른 방법?
+
+    private Winning winning;
 
     /**
      * 공통 예외 처리
@@ -51,21 +51,21 @@ public class Validator {
     /**
      * 보너스 숫자 예외 처리
      */
-    public void validateBonusNumber() {
-        isBonusNumberInRange();
-        isBonusNumberDuplicate();
+    public void validateBonusNumber(int num) {
+        isBonusNumberInRange(num);
+        isBonusNumberDuplicate(num);
     }
 
-    private void isBonusNumberInRange() {
-        if (input.getBonusNumber() < 1 || input.getBonusNumber() > 45) {
+    private void isBonusNumberInRange(int num) {
+        if (num < 1 || num > 45) {
             throw new IllegalArgumentException();
         }
     }
 
-    public void isBonusNumberDuplicate() {
-        List<Integer> list = input.getWinningNumberList();
+    public void isBonusNumberDuplicate(int num) {
+        List<Integer> list = winning.getWinningNumberList();
 
-        if (list.contains(input.getBonusNumber())) {
+        if (list.contains(num)) {
             throw new IllegalArgumentException();
         }
     }
@@ -74,19 +74,19 @@ public class Validator {
     /**
      * 로또 구입 금액 입력 기능 예외 처리
      */
-    public void validateInputAmount() {
-        isInputAmountInRange();
-        hasChange();
+    public void validateInputAmount(int amount) {
+        isInputAmountInRange(amount);
+        hasChange(amount);
     }
 
-    private void isInputAmountInRange() {
-        if (input.getBonusNumber() < 1000 || input.getBonusNumber() > 100000) {
+    private void isInputAmountInRange(int amount) {
+        if (amount < 1000 || amount > 100000) {
             throw new IllegalArgumentException();
         }
     }
 
-    public void hasChange() {
-        if (input.getBuyAmount() % 1000 != 0) {
+    public void hasChange(int amount) {
+        if (amount % 1000 != 0) {
             throw new IllegalArgumentException();
         }
     }
