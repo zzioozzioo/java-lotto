@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import java.util.List;
+
 public class User {
 
     private int buyAmount; // TODO: Long 타입 고민
@@ -7,6 +9,8 @@ public class User {
 
     private int winnings;
     private double rateOfReturn;
+
+    private List<Integer> winningCountList; // 일치 개수별 당첨 개수
 
     public User() {
     }
@@ -45,4 +49,5 @@ public class User {
 
     // TODO: 사용자 로또 번호 리스트를 어떻게 구현..? 구매한 개수만큼 리스트를 만들어야 하나..
     //  배열 안에 리스트 ArrayList<ST>[] userNumberList = new ArrayList[로또 수량]; 이런 식으로?
+
 }
