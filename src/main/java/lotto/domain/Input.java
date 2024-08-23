@@ -5,26 +5,26 @@ import java.util.List;
 
 public class Input {
 
-    private String buyAmount;
 
-    // 변경 전 당첨 번호, 보너스 숫자
+    // 자료형 변경 전
+    private String buyAmountString;
     private String winningNumber;
     private String bonusNumberString;
 
-    // 변경 후 당첨 번호, 보너스 숫자
+    // 자료형 변경 후
+
+    private int buyAmount;
     private List<Integer> winningNumberList = new ArrayList<>(6);
-
     private int bonusNumber;
-
     public Input() {
     }
 
-    public String getBuyAmount() {
-        return buyAmount;
+    public String getBuyAmountString() {
+        return buyAmountString;
     }
 
-    public void setBuyAmount(String buyAmount) {
-        this.buyAmount = buyAmount;
+    public void setBuyAmountString(String buyAmountString) {
+        this.buyAmountString = buyAmountString;
     }
 
     public String getWinningNumber() {
@@ -41,6 +41,14 @@ public class Input {
 
     public void setBonusNumberString(String bonusNumberString) {
         this.bonusNumberString = bonusNumberString;
+    }
+
+    public int getBuyAmount() {
+        return buyAmount;
+    }
+
+    public void setBuyAmount(int buyAmount) {
+        this.buyAmount = buyAmount;
     }
 
     public List<Integer> getWinningNumberList() {
