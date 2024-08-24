@@ -12,17 +12,13 @@ import static camp.nextstep.edu.missionutils.Randoms.*;
 // TODO: 사용자 로또 번호 생성 기능 구현
 public class UserService {
 
-    private User user;
-
-    public Lotto getRandomNumber() {
+    public Lotto getRandomNumber(User user) {
         user.setUserNumberList(pickUniqueNumbersInRange(1, 45, 6));
-        sort();
+        sort(user);
         return new Lotto(user.getUserNumberList());
     }
 
-    // 1. sort는 어떤 service에 포함시켜야 할지...
-    // 2. UserService를 LottoService로 변경해야 하나?
-    public void sort() {
+    public void sort(User user) {
         Collections.sort(user.getUserNumberList());
     }
 }
