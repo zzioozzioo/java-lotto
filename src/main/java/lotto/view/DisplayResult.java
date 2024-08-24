@@ -17,12 +17,18 @@ public class DisplayResult {
     }
 
     public void displayUserLottoNumber(List<Integer> numbers) {
-        System.out.println(numbers); // 사용자 로또 번호 출력
+        System.out.println(numbers);
+    }
+
+    public void displayWinningStatistics() {
+        System.out.println("당첨 통계");
+        System.out.println("---");
     }
 
     public void displayWinningRank() {
 
         // TODO: 일치 개수별 당첨 개수는 user에 저장해야 하나 rank에 저장해야 하나
+        // user.lottoResult 해시맵에 저장!!
         System.out.println(rank.FIFTH.getCount() + "개 일치 (" + rank.FIFTH.getConvertPrize() + ") - " + "개");
         System.out.println(rank.FOURTH.getCount() + "개 일치 (" + rank.FOURTH.getConvertPrize() + ") - " + "개");
         System.out.println(rank.THIRD.getCount() + "개 일치 (" + rank.THIRD.getConvertPrize() + ") - " + "개");
@@ -33,5 +39,4 @@ public class DisplayResult {
     public void displayRateOfReturn() {
         System.out.println("총 수익률은 " + user.getRateOfReturn() + "%입니다.");
     }
-
 }
