@@ -25,11 +25,17 @@ public class Controller {
     private DisplayResult displayResult;
 
     public void run() {
+        // TODO: user.initLottoResult()를 그대로 넣는 게 맞나 고민
+        user.initLottoResult();
         getBuyAmountInput();
         getAllUserLottoNumber();
         getWinningNumberInput();
         getBonusNumberInput();
         getLottoResult();
+        getWinningStatistics();
+        // TODO: 당첨 통계 출력
+        //  1. 일치 개수별 당첨 개수
+        //  2. 수익률
     }
 
     public void getBuyAmountInput() {
@@ -76,4 +82,16 @@ public class Controller {
         calcService.calculateLottoResult();
     }
 
+
+    public void getWinningStatistics() {
+        displayResult.displayWinningStatistics();
+
+        // 일치 개수별 당첨 개수 출력
+        displayResult.displayWinningRank();
+
+        // 수익률 출력
+        calcService.calculateWinnings();
+        calcService.caculateRateOfReturn();
+        displayResult.displayRateOfReturn();
+    }
 }
