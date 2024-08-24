@@ -16,18 +16,18 @@ import java.util.List;
 
 public class Controller {
 
-    private User user;
-    private Winning winning;
-    private ConvertService lottoService;
-    private UserService userService;
-    private CalcService calcService;
-    private InputMessage inputMessage;
-    private DisplayResult displayResult;
+    private User user = new User();
+    private Winning winning = new Winning();
+    private ConvertService convertService = new ConvertService();
+    private UserService userService = new UserService();
+    private CalcService calcService = new CalcService();
+    private InputMessage inputMessage = new InputMessage();
+    private DisplayResult displayResult = new DisplayResult();
 
     public void run() {
         // TODO: user.initLottoResult()를 그대로 넣는 게 맞나 고민
         user.initLottoResult();
-        getBuyAmountInput();
+        getBuyAmountInput(); // 여기까진 ㄱㅊ
         getAllUserLottoNumber();
         getWinningNumberInput();
         getBonusNumberInput();
@@ -40,13 +40,14 @@ public class Controller {
 
     public void getBuyAmountInput() {
         inputMessage.getUserBuyAmount();
-        int amount = lottoService.convertInputAmount(readLine());
+        int amount = convertService.convertInputAmount(readLine());
+//        int amount = convertService.convertInputAmount("8000");
         user.setBuyAmount(amount);
     }
 
     public void getAllUserLottoNumber() {
-        calcService.countHowManyLotto();
-        displayResult.displayBuyHowManyLotto();
+        calcService.countHowManyLotto(user);
+        displayResult.displayBuyHowManyLotto(user);
         int quantity = user.getLottoQuantity();
 
         for (int i = 0; i < quantity; i++) {
@@ -68,18 +69,18 @@ public class Controller {
 
     public void getWinningNumberInput() {
         inputMessage.getLottoWinningNumber();
-        List<Integer> list = lottoService.convertStringToList(readLine());
+        List<Integer> list = convertService.convertStringToList(readLine());
         winning.setWinningNumberList(list);
     }
 
     public void getBonusNumberInput() {
         inputMessage.getLottoBonusNumber();
-        int bonus = lottoService.convert(readLine());
+        int bonus = convertService.convert(readLine());
         winning.setBonusNumber(bonus);
     }
 
     public void getLottoResult() {
-        calcService.calculateLottoResult();
+        calcService.calculateLottoResult(user);
     }
 
 
@@ -87,11 +88,11 @@ public class Controller {
         displayResult.displayWinningStatistics();
 
         // 일치 개수별 당첨 개수 출력
-        displayResult.displayWinningRank();
+        displayResult.displayWinningRank(user);
 
         // 수익률 출력
-        calcService.calculateWinnings();
-        calcService.caculateRateOfReturn();
-        displayResult.displayRateOfReturn();
+        calcService.calculateWinnings(user);
+        calcService.caculateRateOfReturn(user);
+        displayResult.displayRateOfReturn(user);
     }
 }
