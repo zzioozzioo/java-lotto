@@ -53,4 +53,23 @@ public class User {
     //  ㄴㄴ 리스트 하나만 만들어서 실시간으로 로또 수량만큼 [6개의 로또 번호 출력 + 당첨 내역에 업데이트] 반복
 
 
+    public List<Integer> getUserNumberList() {
+        return userNumberList;
+    }
+
+    public void setUserNumberList(List<Integer> userNumberList) {
+        this.userNumberList = userNumberList;
+    }
+
+//    public void updateUserNumberList(List<Integer> userNumberList) {
+//        this.userNumberList = userNumberList;
+//    }
+
+    public List<Integer> getWinningCountList() {
+        return winningCountList;
+    }
+
+    public void setWinningCountList(List<Integer> winningCountList) {
+        this.winningCountList = winningCountList;
+    }
 }
