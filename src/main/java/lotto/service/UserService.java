@@ -4,7 +4,6 @@ import lotto.domain.Lotto;
 import lotto.domain.User;
 
 import java.util.Collections;
-import java.util.List;
 
 import static camp.nextstep.edu.missionutils.Randoms.*;
 
@@ -14,11 +13,11 @@ public class UserService {
 
     public Lotto getRandomNumber(User user) {
         user.setUserNumberList(pickUniqueNumbersInRange(1, 45, 6));
-        sort(user);
+        sortList(user);
         return new Lotto(user.getUserNumberList());
     }
 
-    public void sort(User user) {
+    public void sortList(User user) {
         Collections.sort(user.getUserNumberList());
     }
 }
