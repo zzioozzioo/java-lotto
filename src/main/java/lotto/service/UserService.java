@@ -17,4 +17,10 @@ public class UserService {
         user.setUserNumberList(pickUniqueNumbersInRange(1, 45, 6));
         // 중복 체크는 함수 내에서 다 하나? 그런 듯...
     }
+
+    // 1. sort는 어떤 service에 포함시켜야 할지...
+    // 2. UserService를 LottoService로 변경해야 하나?
+    public void sort() {
+        Collections.sort(user.getUserNumberList());
+    }
 }
