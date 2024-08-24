@@ -6,10 +6,10 @@ import java.util.List;
 
 public class User {
 
-    private int buyAmount; // TODO: Long 타입 고민
+    private long buyAmount; // TODO: Long 타입 고민
     private int lottoQuantity;
 
-    private int winnings;
+    private long winnings;
     private double rateOfReturn;
 
     private List<Integer> userNumberList; // 발행받은 로또 번호
@@ -21,7 +21,7 @@ public class User {
     public User() {
     }
 
-    public int getBuyAmount() {
+    public long getBuyAmount() {
         return buyAmount;
     }
 
@@ -37,8 +37,12 @@ public class User {
         this.lottoQuantity = lottoQuantity;
     }
 
-    public int getWinnings() {
+    public long getWinnings() {
         return winnings;
+    }
+
+    public void setWinnings(long winnings) {
+        this.winnings = winnings;
     }
 
     public double getRateOfReturn() {
