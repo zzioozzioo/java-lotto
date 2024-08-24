@@ -13,8 +13,10 @@ public class User {
     private double rateOfReturn;
 
     private List<Integer> userNumberList; // 발행받은 로또 번호
-//    private List<Integer> winningCountList = List.of(0, 0, 0, 0, 0); // 일치 개수별 당첨 개수(당첨 내역 출력에 필요)
-    private HashMap<Rank, Integer> lottoResult = new HashMap<>();
+
+    // 왜 final?
+    private ArrayList<Lotto> purchasedLotteries = new ArrayList<>(); // 구매한 로또 전체 번호 저장된 리스트
+    private HashMap<Rank, Integer> lottoResult = new HashMap<>(); // 일치 개수에 따른 당첨 개수 저장된 해시맵
 
     public User() {
     }
@@ -39,10 +41,6 @@ public class User {
         return winnings;
     }
 
-    public void setWinnings(int winnings) {
-        this.winnings = winnings;
-    }
-
     public double getRateOfReturn() {
         return rateOfReturn;
     }
@@ -64,15 +62,26 @@ public class User {
         this.userNumberList = userNumberList;
     }
 
-//    public void updateUserNumberList(List<Integer> userNumberList) {
-//        this.userNumberList = userNumberList;
-//    }
+    public void buyLotto(Lotto lotto) {
+        purchasedLotteries.add(lotto);
+    }
 
-//    public List<Integer> getWinningCountList() {
-//        return winningCountList;
-//    }
-//
-//    public void setWinningCountList(List<Integer> winningCountList) {
-//        this.winningCountList = winningCountList;
-//    }
+    public ArrayList<Lotto> getPurchasedLotteries() {
+        return purchasedLotteries;
+    }
+
+    public HashMap<Rank, Integer> getLottoResult() {
+        return lottoResult;
+    }
+
+    public void initLottoResult() {
+        lottoResult.put(Rank.FIRST, 0);
+        lottoResult.put(Rank.SECOND, 0);
+        lottoResult.put(Rank.THIRD, 0);
+        lottoResult.put(Rank.FOURTH, 0);
+        lottoResult.put(Rank.FIFTH, 0);
+        lottoResult.put(Rank.NO_RANK_TWO, 0);
+        lottoResult.put(Rank.NO_RANK_ONE, 0);
+        lottoResult.put(Rank.NO_RANK_ZERO, 0);
+    }
 }
