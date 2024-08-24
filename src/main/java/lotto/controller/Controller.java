@@ -26,15 +26,38 @@ public class Controller {
 
     public void run() {
         getBuyAmountInput();
+        getAllUserLottoNumber();
         getWinningNumberInput();
         getBonusNumberInput();
-        getAllUserLottoNumber();
+        getLottoResult();
     }
 
     public void getBuyAmountInput() {
         inputMessage.getUserBuyAmount();
         int amount = lottoService.convertInputAmount(readLine());
         user.setBuyAmount(amount);
+    }
+
+    public void getAllUserLottoNumber() {
+        calcService.countHowManyLotto();
+        displayResult.displayBuyHowManyLotto();
+        int quantity = user.getLottoQuantity();
+
+        for (int i = 0; i < quantity; i++) {
+            getOneUserLottoNumber();
+        }
+        displayUserLottoResult();
+    }
+
+    public void getOneUserLottoNumber() {
+        Lotto lotto = userService.getRandomNumber(); // sort 완료
+        user.buyLotto(lotto); // add 완료
+    }
+
+    public void displayUserLottoResult() {
+        for (Lotto lotto : user.getPurchasedLotteries()) {
+            displayResult.displayUserLottoNumber(lotto.getNumbers());
+        }
     }
 
     public void getWinningNumberInput() {
@@ -49,28 +72,8 @@ public class Controller {
         winning.setBonusNumber(bonus);
     }
 
-    public void getAllUserLottoNumber() {
-        displayResult.displayBuyHowManyLotto();
-        int quantity = user.getLottoQuantity();
-        // 사용자 로또 번호 생성
-        for (int i = 0; i < quantity; i++) {
-            getOneUserLottoNumber();
-        }
-        displayUserLottoResult();
-    }
-
-    private void displayUserLottoResult() {
-        for (Lotto lotto : user.getPurchasedLotteries()) {
-            displayResult.displayUserLottoNumber(lotto.getNumbers());
-        }
-    }
-
-    private void getOneUserLottoNumber() {
-//            userService.getRandomNumber();
-//            displayResult.displayUserLottoNumber();
-//            calcService.calculateWinning();
-        Lotto lotto = userService.getRandomNumber(); // sort 완료
-        user.buyLotto(lotto); // add 완료
+    public void getLottoResult() {
+        calcService.calculateLottoResult();
     }
 
 }
