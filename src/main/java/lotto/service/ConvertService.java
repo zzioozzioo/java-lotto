@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 // controller가 service 호출하는 것..
 public class ConvertService {
 
-    private Validator validator;
+    private Validator validator = new Validator();
 
     public List<Integer> convertStringToList(String str) {
         String[] strArr = str.split(",");
