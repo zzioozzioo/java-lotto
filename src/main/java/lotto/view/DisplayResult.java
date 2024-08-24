@@ -10,8 +10,8 @@ public class DisplayResult {
     private User user;
 
     // TODO: 사용자 로또 번호 출력 기능 구현
-    public void displayUserNumber() {
-
+    public void displayBuyHowManyLotto() {
+        System.out.println(user.getLottoQuantity() + "개를 구매했습니다.");
     }
 
     public void displayWinningRank() {
