@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class User {
@@ -12,7 +13,8 @@ public class User {
     private double rateOfReturn;
 
     private List<Integer> userNumberList; // 발행받은 로또 번호
-    private List<Integer> winningCountList = List.of(0, 0, 0, 0, 0); // 일치 개수별 당첨 개수(당첨 내역 출력에 필요)
+//    private List<Integer> winningCountList = List.of(0, 0, 0, 0, 0); // 일치 개수별 당첨 개수(당첨 내역 출력에 필요)
+    private HashMap<Rank, Integer> lottoResult = new HashMap<>();
 
     public User() {
     }
@@ -66,11 +68,11 @@ public class User {
 //        this.userNumberList = userNumberList;
 //    }
 
-    public List<Integer> getWinningCountList() {
-        return winningCountList;
-    }
-
-    public void setWinningCountList(List<Integer> winningCountList) {
-        this.winningCountList = winningCountList;
-    }
+//    public List<Integer> getWinningCountList() {
+//        return winningCountList;
+//    }
+//
+//    public void setWinningCountList(List<Integer> winningCountList) {
+//        this.winningCountList = winningCountList;
+//    }
 }
