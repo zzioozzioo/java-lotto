@@ -17,5 +17,8 @@ public class Lotto {
         validator.validateWinningNumber(numbers);
     }
 
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
     // TODO: 추가 기능 구현
 }
