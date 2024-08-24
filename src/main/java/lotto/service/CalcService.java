@@ -13,12 +13,10 @@ import java.util.Map;
 public class CalcService {
     // TODO: CalcService의 성격과 맞지 않는 메서드는 따로 빼기
 
-    private Winning winning = new Winning();
-
     /**
      * 로또 수량 계산 기능
      */
-    public void countHowManyLotto(User user) { // 얘가 이상
+    public void countHowManyLotto(User user) {
         long amount = user.getBuyAmount();
         user.setLottoQuantity((int)(amount / 1000));
     }
@@ -27,13 +25,13 @@ public class CalcService {
      * 당첨 내역 계산 기능
      */
     // TODO: 메서드명 다시 고민해보기
-    public void calculateLottoResult(User user) {
+    public void calculateLottoResult(User user, Winning winning) {
         List<Integer> winningNumberList = winning.getWinningNumberList(); // 당첨 번호 리스트
 
         for (Lotto lotto : user.getPurchasedLotteries()) {
             int winningCount = calculateWinningCount(lotto, winningNumberList);
 
-            Rank matchRank = determineRank(lotto, winningCount);
+            Rank matchRank = determineRank(lotto, winning, winningCount);
 
             updateLottoResult(matchRank, user);
         }
@@ -46,7 +44,7 @@ public class CalcService {
         return (int)winningCount;
     }
 
-    private Rank determineRank(Lotto lotto, int winningCount) {
+    private Rank determineRank(Lotto lotto, Winning winning, int winningCount) {
         Rank matchRank;
 
         if (winningCount == 5) {
@@ -97,11 +95,11 @@ public class CalcService {
     /**
      * 수익률 계산 기능
      */
-    public void caculateRateOfReturn(User user) {
+    public void calculateRateOfReturn(User user) {
         long amount = user.getBuyAmount();
 
-        double rateOfReturn = (double)amount / user.getWinnings();
-        rateOfReturn = Math.round(rateOfReturn * 100) / 100.0;
+        double rateOfReturn = user.getWinnings() / (double)amount;
+        rateOfReturn = Math.round(rateOfReturn * 100);
 
         user.setRateOfReturn(rateOfReturn);
     }
