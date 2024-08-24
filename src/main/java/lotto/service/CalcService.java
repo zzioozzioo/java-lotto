@@ -6,7 +6,9 @@ import lotto.domain.Winning;
 import lotto.domain.User;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class CalcService {
 
@@ -18,8 +20,8 @@ public class CalcService {
      * 로또 수량 계산 기능
      */
     public void countHowManyLotto() {
-        int amount = user.getBuyAmount();
-        user.setLottoQuantity(amount / 1000);
+        long amount = user.getBuyAmount();
+        user.setLottoQuantity((int)(amount / 1_000L));
     }
 
     /**
@@ -78,10 +80,26 @@ public class CalcService {
     }
 
     /**
+     * 당첨금 계산 기능
+     */
+    public void calculateWinnings() {
+        long winnings = 0;
+        Iterator<Map.Entry<Rank, Integer>> entries = user.getLottoResult().entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry<Rank, Integer> entry = entries.next();
+            int count = entry.getValue();
+            long prize = entry.getKey().getPrize();
+
+            winnings += count * prize;
+        }
+        user.setWinnings(winnings);
+    }
+
+    /**
      * 수익률 계산 기능
      */
     public void caculateRateOfReturn() {
-        int amount = user.getBuyAmount();
+        long amount = user.getBuyAmount();
 
         double rateOfReturn = (double)amount / user.getWinnings();
         rateOfReturn = Math.round(rateOfReturn * 100) / 100.0;
