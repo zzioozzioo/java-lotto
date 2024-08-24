@@ -11,24 +11,23 @@ import java.util.List;
 import java.util.Map;
 
 public class CalcService {
+    // TODO: CalcService의 성격과 맞지 않는 메서드는 따로 빼기
 
-    private User user;
-    private Winning winning;
-    private Rank rank;
+    private Winning winning = new Winning();
 
     /**
      * 로또 수량 계산 기능
      */
-    public void countHowManyLotto() {
+    public void countHowManyLotto(User user) { // 얘가 이상
         long amount = user.getBuyAmount();
-        user.setLottoQuantity((int)(amount / 1_000L));
+        user.setLottoQuantity((int)(amount / 1000));
     }
 
     /**
      * 당첨 내역 계산 기능
      */
     // TODO: 메서드명 다시 고민해보기
-    public void calculateLottoResult() {
+    public void calculateLottoResult(User user) {
         List<Integer> winningNumberList = winning.getWinningNumberList(); // 당첨 번호 리스트
 
         for (Lotto lotto : user.getPurchasedLotteries()) {
@@ -36,7 +35,7 @@ public class CalcService {
 
             Rank matchRank = determineRank(lotto, winningCount);
 
-            updateLottoResult(matchRank);
+            updateLottoResult(matchRank, user);
         }
     }
 
@@ -54,10 +53,10 @@ public class CalcService {
             int bonusNumber = winning.getBonusNumber();
 
             if (lotto.getNumbers().contains(bonusNumber)) { // 5개 일치, 보너스 볼 일치
-                matchRank = rank.SECOND;
+                matchRank = Rank.SECOND;
                 return matchRank;
             }
-            matchRank = rank.THIRD;
+            matchRank = Rank.THIRD;
             return matchRank;
         }
         matchRank = getRankByWinningCount(winningCount);
@@ -74,7 +73,7 @@ public class CalcService {
         return Rank.NO_RANK_ZERO;
     }
 
-    private void updateLottoResult(Rank rank) {
+    private void updateLottoResult(Rank rank, User user) {
         HashMap<Rank, Integer> lottoResult = user.getLottoResult();
         lottoResult.put(rank, lottoResult.getOrDefault(rank, 0) + 1);
     }
@@ -82,7 +81,7 @@ public class CalcService {
     /**
      * 당첨금 계산 기능
      */
-    public void calculateWinnings() {
+    public void calculateWinnings(User user) {
         long winnings = 0;
         Iterator<Map.Entry<Rank, Integer>> entries = user.getLottoResult().entrySet().iterator();
         while (entries.hasNext()) {
@@ -98,7 +97,7 @@ public class CalcService {
     /**
      * 수익률 계산 기능
      */
-    public void caculateRateOfReturn() {
+    public void caculateRateOfReturn(User user) {
         long amount = user.getBuyAmount();
 
         double rateOfReturn = (double)amount / user.getWinnings();
