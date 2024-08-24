@@ -16,7 +16,6 @@ import java.util.List;
 
 public class Controller {
 
-    // 이렇게 의존성 주입을 하는 게 더 낫다고 함..!
     private User user;
     private Winning winning;
     private ConvertService lottoService;
@@ -24,6 +23,13 @@ public class Controller {
     private CalcService calcService;
     private InputMessage inputMessage;
     private DisplayResult displayResult;
+
+    public void run() {
+        getBuyAmountInput();
+        getWinningNumberInput();
+        getBonusNumberInput();
+        getAllUserLottoNumber();
+    }
 
     public void getBuyAmountInput() {
         inputMessage.getUserBuyAmount();
@@ -45,9 +51,17 @@ public class Controller {
 
     public void getAllUserLottoNumber() {
         displayResult.displayBuyHowManyLotto();
-        int num = user.getLottoQuantity();
-        for (int i = 0; i < num; i++) {
+        int quantity = user.getLottoQuantity();
+        // 사용자 로또 번호 생성
+        for (int i = 0; i < quantity; i++) {
             getOneUserLottoNumber();
+        }
+        displayUserLottoResult();
+    }
+
+    private void displayUserLottoResult() {
+        for (Lotto lotto : user.getPurchasedLotteries()) {
+            displayResult.displayUserLottoNumber(lotto.getNumbers());
         }
     }
 
@@ -55,8 +69,8 @@ public class Controller {
 //            userService.getRandomNumber();
 //            displayResult.displayUserLottoNumber();
 //            calcService.calculateWinning();
-        Lotto lotto = userService.getRandomNumber();
-        user.buyLotto(lotto);
+        Lotto lotto = userService.getRandomNumber(); // sort 완료
+        user.buyLotto(lotto); // add 완료
     }
 
 }
