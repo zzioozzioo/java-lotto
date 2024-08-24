@@ -1,5 +1,6 @@
 package lotto.service;
 
+import lotto.domain.Lotto;
 import lotto.domain.User;
 
 import java.util.Collections;
@@ -13,10 +14,10 @@ public class UserService {
 
     private User user;
 
-    public void getRandomNumber() {
+    public Lotto getRandomNumber() {
         user.setUserNumberList(pickUniqueNumbersInRange(1, 45, 6));
         sort();
-        // 중복 체크는 함수 내에서 다 하나? 그런 듯...
+        return new Lotto(user.getUserNumberList());
     }
 
     // 1. sort는 어떤 service에 포함시켜야 할지...
