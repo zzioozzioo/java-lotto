@@ -15,6 +15,7 @@ public class UserService {
 
     public void getRandomNumber() {
         user.setUserNumberList(pickUniqueNumbersInRange(1, 45, 6));
+        sort();
         // 중복 체크는 함수 내에서 다 하나? 그런 듯...
     }
 
