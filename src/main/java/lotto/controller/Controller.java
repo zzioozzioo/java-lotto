@@ -3,6 +3,7 @@ package lotto.controller;
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 
+import lotto.domain.Lotto;
 import lotto.domain.User;
 import lotto.domain.Winning;
 import lotto.service.CalcService;
@@ -10,7 +11,6 @@ import lotto.service.ConvertService;
 import lotto.service.UserService;
 import lotto.view.DisplayResult;
 import lotto.view.InputMessage;
-import lotto.view.DisplayResult;
 
 import java.util.List;
 
@@ -43,14 +43,20 @@ public class Controller {
         winning.setBonusNumber(bonus);
     }
 
-    public void getUserLottoNumber() {
+    public void getAllUserLottoNumber() {
         displayResult.displayBuyHowManyLotto();
         int num = user.getLottoQuantity();
         for (int i = 0; i < num; i++) {
-            userService.getRandomNumber();
-            displayResult.displayUserLottoNumber();
-            calcService.calculateWinning();
+            getOneUserLottoNumber();
         }
+    }
+
+    private void getOneUserLottoNumber() {
+//            userService.getRandomNumber();
+//            displayResult.displayUserLottoNumber();
+//            calcService.calculateWinning();
+        Lotto lotto = userService.getRandomNumber();
+        user.buyLotto(lotto);
     }
 
 }
