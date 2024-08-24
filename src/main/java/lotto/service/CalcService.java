@@ -25,18 +25,41 @@ public class CalcService {
     /**
      * 당첨 내역 계산 기능
      */
-    public void calculateWinning() {
+    // TODO: 메서드명 다시 고민해보기
+    public void calculateLottoResult() {
         List<Integer> winningNumberList = winning.getWinningNumberList(); // 당첨 번호 리스트
 
         for (Lotto lotto : user.getPurchasedLotteries()) {
-            long winningCount = lotto.getNumbers().stream()
-                    .filter(winningNumberList::contains)
-                    .count();
+            int winningCount = calculateWinningCount(lotto, winningNumberList);
 
-            Rank matchRank = getRankByWinningCount((int)winningCount);
-            HashMap<Rank, Integer> lottoResult = user.getLottoResult();
-            lottoResult.put(rank, lottoResult.getOrDefault(rank, 0) + 1);
+            Rank matchRank = determineRank(lotto, winningCount);
+
+            updateLottoResult(matchRank);
         }
+    }
+
+    public int calculateWinningCount(Lotto lotto, List<Integer> winningNumberList) {
+        long winningCount = lotto.getNumbers().stream()
+                .filter(winningNumberList::contains)
+                .count();
+        return (int)winningCount;
+    }
+
+    private Rank determineRank(Lotto lotto, int winningCount) {
+        Rank matchRank;
+
+        if (winningCount == 5) {
+            int bonusNumber = winning.getBonusNumber();
+
+            if (lotto.getNumbers().contains(bonusNumber)) { // 5개 일치, 보너스 볼 일치
+                matchRank = rank.SECOND;
+                return matchRank;
+            }
+            matchRank = rank.THIRD;
+            return matchRank;
+        }
+        matchRank = getRankByWinningCount(winningCount);
+        return matchRank;
     }
 
     public Rank getRankByWinningCount(int winningCount) {
@@ -47,6 +70,11 @@ public class CalcService {
             }
         }
         return Rank.NO_RANK_ZERO;
+    }
+
+    private void updateLottoResult(Rank rank) {
+        HashMap<Rank, Integer> lottoResult = user.getLottoResult();
+        lottoResult.put(rank, lottoResult.getOrDefault(rank, 0) + 1);
     }
 
     /**
