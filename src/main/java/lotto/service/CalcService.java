@@ -1,9 +1,11 @@
 package lotto.service;
 
+import lotto.domain.Lotto;
 import lotto.domain.Rank;
 import lotto.domain.Winning;
 import lotto.domain.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class CalcService {
@@ -24,56 +26,27 @@ public class CalcService {
      * 당첨 내역 계산 기능
      */
     public void calculateWinning() {
-        List<Integer> winningNumberList = winning.getWinningNumberList();
+        List<Integer> winningNumberList = winning.getWinningNumberList(); // 당첨 번호 리스트
 
-        // TODO: 로또 번호 리스트와 당첨 번호 비교 로직 구현
-        int winningCount = 0;
-        for (int targetNum : user.getUserNumberList()) {
-            if (winningNumberList.contains(targetNum)) {
-                winningCount++;
-            }
+        for (Lotto lotto : user.getPurchasedLotteries()) {
+            long winningCount = lotto.getNumbers().stream()
+                    .filter(winningNumberList::contains)
+                    .count();
+
+            Rank matchRank = getRankByWinningCount((int)winningCount);
+            HashMap<Rank, Integer> lottoResult = user.getLottoResult();
+            lottoResult.put(rank, lottoResult.getOrDefault(rank, 0) + 1);
         }
-
-        updateWinningCount(winningCount);
     }
 
-    public void updateWinningCount(int winningCount) {
-        // TODO: 당첨 내역에 업데이트 로직 구현
-        // winningCount를 user.winningCountList에 업데이트하는 로직은 어디에 추가? 그냥 여기에?
+    public Rank getRankByWinningCount(int winningCount) {
 
-        List<Integer> winningNumberList = winning.getWinningNumberList();
-        List<Integer> winningCountList = user.getWinningCountList();
-
-        if (winningCount == rank.FIFTH.getCount()) { // 3개 일치
-            int num = winningCountList.get(0);
-            winningCountList.set(0, num++);
-            return;
-        }
-        if (winningCount == rank.FOURTH.getCount()) { // 4개 일치
-            int num = winningCountList.get(1);
-            winningCountList.set(1, num++);
-            return;
-        }
-        if (winningCount == rank.THIRD.getCount()) { // 5개 일치
-            if (!winningNumberList.contains(winning.getBonusNumber())) {
-                int num = winningCountList.get(2);
-                winningCountList.set(2, num++);
-                return;
+        for (Rank rank : Rank.values()) {
+            if (rank.getCount() == winningCount) {
+                return rank;
             }
         }
-        if (winningCount == rank.SECOND.getCount()) { // 5개 일치, 보너스 볼 일치
-            if (winningNumberList.contains(winning.getBonusNumber())) {
-                int num = winningCountList.get(3);
-                winningCountList.set(3, num++);
-                return;
-            }
-        }
-        if (winningCount == rank.FIRST.getCount()) { // 6개 일치
-            int num = winningCountList.get(4);
-            winningCountList.set(4, num++);
-            return;
-        }
-        return;
+        return Rank.NO_RANK_ZERO;
     }
 
     /**
