@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CalcService {
-    // TODO: CalcService의 성격과 맞지 않는 메서드는 따로 빼기
 
     /**
      * 로또 수량 계산 기능
@@ -25,7 +24,6 @@ public class CalcService {
     /**
      * 당첨 내역 계산 기능
      */
-    // TODO: 메서드명 다시 고민해보기
     public void calculateLottoResult(User user, Winning winning) {
         List<Integer> winningNumberList = winning.getWinningNumberList(); // 당첨 번호 리스트
 
