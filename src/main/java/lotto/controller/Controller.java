@@ -8,8 +8,8 @@ import lotto.domain.User;
 import lotto.domain.Winning;
 import lotto.service.CalcService;
 import lotto.service.ConvertService;
-import lotto.service.UserService;
-import lotto.view.DisplayResult;
+import lotto.service.LottoService;
+import lotto.view.DisplayMessage;
 import lotto.view.InputMessage;
 
 import java.util.List;
@@ -19,20 +19,24 @@ public class Controller {
     private User user = new User();
     private Winning winning = new Winning();
     private ConvertService convertService = new ConvertService();
-    private UserService userService = new UserService();
+    private LottoService lottoService = new LottoService();
     private CalcService calcService = new CalcService();
     private InputMessage inputMessage = new InputMessage();
-    private DisplayResult displayResult = new DisplayResult();
+    private DisplayMessage displayMessage = new DisplayMessage();
 
     public void run() {
-        // TODO: user.initLottoResult()를 그대로 넣는 게 맞나 고민
-        user.initLottoResult();
-        getBuyAmountInput(); // 여기까진 ㄱㅊ
+
+        getInitialLottoResult();
+        getBuyAmountInput();
         getAllUserLottoNumber();
         getWinningNumberInput();
         getBonusNumberInput();
         getLottoResult();
         getWinningStatistics();
+    }
+
+    private void getInitialLottoResult() {
+        lottoService.initLottoResult(user);
     }
 
     public void getBuyAmountInput() {
@@ -43,7 +47,7 @@ public class Controller {
 
     public void getAllUserLottoNumber() {
         calcService.countHowManyLotto(user);
-        displayResult.displayBuyHowManyLotto(user);
+        displayMessage.displayBuyHowManyLotto(user);
         int quantity = user.getLottoQuantity();
 
         for (int i = 0; i < quantity; i++) {
@@ -53,13 +57,13 @@ public class Controller {
     }
 
     public void getOneUserLottoNumber() {
-        Lotto lotto = userService.getRandomNumber(user);
+        Lotto lotto = lottoService.getRandomLottoNumber(user);
         user.buyLotto(lotto);
     }
 
     public void displayUserLottoResult() {
         for (Lotto lotto : user.getPurchasedLotteries()) {
-            displayResult.displayUserLottoNumber(lotto.getNumbers());
+            displayMessage.displayUserLottoNumber(lotto.getNumbers());
         }
     }
 
@@ -81,14 +85,14 @@ public class Controller {
 
 
     public void getWinningStatistics() {
-        displayResult.displayWinningStatistics();
+        displayMessage.displayWinningStatistics();
 
         // 일치 개수별 당첨 개수 출력
-        displayResult.displayWinningRank(user);
+        displayMessage.displayWinningRank(user);
 
         // 수익률 출력
         calcService.calculateWinnings(user);
         calcService.calculateRateOfReturn(user);
-        displayResult.displayRateOfReturn(user);
+        displayMessage.displayRateOfReturn(user);
     }
 }
