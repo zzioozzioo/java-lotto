@@ -4,6 +4,7 @@ import lotto.domain.Lotto;
 import lotto.domain.User;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static camp.nextstep.edu.missionutils.Randoms.*;
@@ -19,6 +20,7 @@ public class UserService {
     }
 
     public void sortList(User user) {
-        user.getUserNumberList().stream().sorted().collect(Collectors.toList());
+        List<Integer> sortedList = user.getUserNumberList().stream().sorted().collect(Collectors.toList());
+        user.setUserNumberList(sortedList);
     }
 }
