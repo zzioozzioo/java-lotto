@@ -71,7 +71,7 @@ public class Controller {
 
     public void getBonusNumberInput() {
         inputMessage.getLottoBonusNumber();
-        int bonus = convertService.convert(readLine());
+        int bonus = convertService.convertBonusNumber(readLine(), winning);
         winning.setBonusNumber(bonus);
     }
 
