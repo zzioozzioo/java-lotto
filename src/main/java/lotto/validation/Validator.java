@@ -10,15 +10,19 @@ public class Validator {
 
     // TODO: isNumeric()에서 문자열->문자 변환 다른 방법?
 
-    ErrorMessage errorMessage;
-    ConstNumber constNumber;
-
     /**
      * 공통 예외 처리
      */
     public void isNumeric(String s) {
-        if (!Character.isDigit(s.charAt(0))) {
-            throw new IllegalArgumentException(errorMessage.NOT_NUMERIC.getErrorMessage());
+
+        if (s == null || s.isEmpty()) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_NUMERIC.getErrorMessage());
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                throw new IllegalArgumentException(ErrorMessage.NOT_NUMERIC.getErrorMessage());
+            }
         }
     }
 
@@ -32,20 +36,20 @@ public class Validator {
     }
 
     public void isCorrectLength(List<Integer> list) {
-        if (list.size() != constNumber.LOTTO_NUM_LENGTH.getNum()) {
-            throw new IllegalArgumentException(errorMessage.NOT_CORRECT_LENGTH.getErrorMessage());
+        if (list.size() != ConstNumber.LOTTO_NUM_LENGTH.getNum()) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_CORRECT_LENGTH.getErrorMessage());
         }
     }
 
     public void isWinningNumberInRange(List<Integer> list) {
-        if (!list.stream().allMatch(digit -> digit >= constNumber.LOTTO_FIRST_NUM.getNum() && digit <= constNumber.LOTTO_LAST_NUM.getNum())) {
-            throw new IllegalArgumentException(errorMessage.NOT_IN_RANGE_WINNING_NUM.getErrorMessage());
+        if (!list.stream().allMatch(digit -> digit >= ConstNumber.LOTTO_FIRST_NUM.getNum() && digit <= ConstNumber.LOTTO_LAST_NUM.getNum())) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_IN_RANGE_WINNING_NUM.getErrorMessage());
         }
     }
 
     public void isWinningNumberDuplicated(List<Integer> list) {
         if (list.stream().distinct().count() != list.size()) {
-            throw new IllegalArgumentException(errorMessage.DUPLICATED_WINNING_NUM.getErrorMessage());
+            throw new IllegalArgumentException(ErrorMessage.DUPLICATED_WINNING_NUM.getErrorMessage());
         }
     }
 
@@ -59,8 +63,8 @@ public class Validator {
     }
 
     private void isBonusNumberInRange(int num) {
-        if (num < constNumber.LOTTO_FIRST_NUM.getNum() || num > constNumber.LOTTO_LAST_NUM.getNum()) {
-            throw new IllegalArgumentException(errorMessage.NOT_IN_RANGE_WINNING_NUM.getErrorMessage());
+        if (num < ConstNumber.LOTTO_FIRST_NUM.getNum() || num > ConstNumber.LOTTO_LAST_NUM.getNum()) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_IN_RANGE_WINNING_NUM.getErrorMessage());
         }
     }
 
@@ -68,7 +72,7 @@ public class Validator {
         List<Integer> list = winning.getWinningNumberList();
 
         if (list.contains(num)) {
-            throw new IllegalArgumentException(errorMessage.DUPLICATED_WINNING_NUM.getErrorMessage());
+            throw new IllegalArgumentException(ErrorMessage.DUPLICATED_WINNING_NUM.getErrorMessage());
         }
     }
 
@@ -82,14 +86,14 @@ public class Validator {
     }
 
     private void isInputAmountInRange(int amount) {
-        if (amount < constNumber.INPUT_AMOUNT_MIN.getNum() || amount > constNumber.INPUT_AMOUNT_MAX.getNum()) {
-            throw new IllegalArgumentException(errorMessage.NOT_IN_RANGE_INPUT_AMOUNT.getErrorMessage());
+        if (amount < ConstNumber.INPUT_AMOUNT_MIN.getNum() || amount > ConstNumber.INPUT_AMOUNT_MAX.getNum()) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_IN_RANGE_INPUT_AMOUNT.getErrorMessage());
         }
     }
 
     public void hasChange(int amount) {
-        if (amount % constNumber.LOTTO_PRICE.getNum() != 0) {
-            throw new IllegalArgumentException(errorMessage.HAS_CHANGE.getErrorMessage());
+        if (amount % ConstNumber.LOTTO_PRICE.getNum() != 0) {
+            throw new IllegalArgumentException(ErrorMessage.HAS_CHANGE.getErrorMessage());
         }
     }
 
