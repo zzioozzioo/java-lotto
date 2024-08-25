@@ -33,15 +33,11 @@ public class Controller {
         getBonusNumberInput();
         getLottoResult();
         getWinningStatistics();
-        // TODO: 당첨 통계 출력
-        //  1. 일치 개수별 당첨 개수
-        //  2. 수익률
     }
 
     public void getBuyAmountInput() {
         inputMessage.getUserBuyAmount();
         int amount = convertService.convertInputAmount(readLine());
-//        int amount = convertService.convertInputAmount("8000");
         user.setBuyAmount(amount);
     }
 
@@ -57,8 +53,8 @@ public class Controller {
     }
 
     public void getOneUserLottoNumber() {
-        Lotto lotto = userService.getRandomNumber(); // sort 완료
-        user.buyLotto(lotto); // add 완료
+        Lotto lotto = userService.getRandomNumber(user);
+        user.buyLotto(lotto);
     }
 
     public void displayUserLottoResult() {
@@ -80,7 +76,7 @@ public class Controller {
     }
 
     public void getLottoResult() {
-        calcService.calculateLottoResult(user);
+        calcService.calculateLottoResult(user, winning);
     }
 
 
@@ -92,7 +88,7 @@ public class Controller {
 
         // 수익률 출력
         calcService.calculateWinnings(user);
-        calcService.caculateRateOfReturn(user);
+        calcService.calculateRateOfReturn(user);
         displayResult.displayRateOfReturn(user);
     }
 }
