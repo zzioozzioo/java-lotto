@@ -1,5 +1,6 @@
 package lotto.service;
 
+import lotto.constant.ConstNumber;
 import lotto.domain.Lotto;
 import lotto.domain.Rank;
 import lotto.domain.Winning;
@@ -18,7 +19,7 @@ public class CalcService {
      */
     public void countHowManyLotto(User user) {
         long amount = user.getBuyAmount();
-        user.setLottoQuantity((int)(amount / 1000));
+        user.setLottoQuantity((int)(amount / ConstNumber.LOTTO_PRICE.getNum()));
     }
 
     /**
