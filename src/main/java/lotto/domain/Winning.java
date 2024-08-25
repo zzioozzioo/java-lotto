@@ -26,5 +26,4 @@ public class Winning {
     public void setBonusNumber(int bonusNumber) {
         this.bonusNumber = bonusNumber;
     }
-    // 등수별(1~5등) 당첨 개수
 }
