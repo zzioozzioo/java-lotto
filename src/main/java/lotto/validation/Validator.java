@@ -9,8 +9,6 @@ public class Validator {
     // TODO: input.getWinningNumberList이 중복되는데 클래스 전역 변수로 사용해도 되나..? 그건 좀 그렇겠지
     // TODO: isNumeric()에서 문자열->문자 변환 다른 방법?
 
-    private Winning winning;
-
     /**
      * 공통 예외 처리
      */
@@ -51,9 +49,9 @@ public class Validator {
     /**
      * 보너스 숫자 예외 처리
      */
-    public void validateBonusNumber(int num) {
+    public void validateBonusNumber(int num, Winning winning) {
         isBonusNumberInRange(num);
-        isBonusNumberDuplicate(num);
+        isBonusNumberDuplicate(num, winning);
     }
 
     private void isBonusNumberInRange(int num) {
@@ -62,7 +60,7 @@ public class Validator {
         }
     }
 
-    public void isBonusNumberDuplicate(int num) {
+    public void isBonusNumberDuplicate(int num, Winning winning) {
         List<Integer> list = winning.getWinningNumberList();
 
         if (list.contains(num)) {
