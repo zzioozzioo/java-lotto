@@ -103,8 +103,8 @@ public class CalcService {
 
         // 소수점 둘째 자리까지 유지하기 위해 DecimalFormat 사용
         DecimalFormat df = new DecimalFormat("#.##");
-        rateOfReturn = Double.parseDouble(df.format(rateOfReturn * 100)) /100;
+        rateOfReturn = Double.parseDouble(df.format(rateOfReturn * 100));
 
-        user.setRateOfReturn(rateOfReturn * 100.0);
+        user.setRateOfReturn(rateOfReturn);
     }
 }
