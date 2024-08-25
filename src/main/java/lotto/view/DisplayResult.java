@@ -10,6 +10,7 @@ public class DisplayResult {
 
 
     public void displayBuyHowManyLotto(User user) {
+        System.out.println();
         System.out.println(user.getLottoQuantity() + "개를 구매했습니다.");
     }
 
@@ -18,14 +19,13 @@ public class DisplayResult {
     }
 
     public void displayWinningStatistics() {
+        System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---");
     }
 
     public void displayWinningRank(User user) {
 
-        // TODO: 일치 개수별 당첨 개수는 user에 저장해야 하나 rank에 저장해야 하나
-        // user.lottoResult 해시맵에 저장!!
         System.out.println(Rank.FIFTH.getCount() + "개 일치 (" + Rank.FIFTH.getConvertPrize() + "원) - " + user.getLottoResult().get(Rank.FIFTH) + "개");
         System.out.println(Rank.FOURTH.getCount() + "개 일치 (" + Rank.FOURTH.getConvertPrize() + "원) - " + user.getLottoResult().get(Rank.FOURTH) + "개");
         System.out.println(Rank.THIRD.getCount() + "개 일치 (" + Rank.THIRD.getConvertPrize() + "원) - " + user.getLottoResult().get(Rank.THIRD) + "개");
