@@ -6,7 +6,7 @@ import java.util.List;
 
 public class User {
 
-    private long buyAmount; // TODO: Long 타입 고민
+    private long buyAmount;
     private int lottoQuantity;
 
     private long winnings;
@@ -73,14 +73,4 @@ public class User {
         return lottoResult;
     }
 
-    public void initLottoResult() {
-        lottoResult.put(Rank.FIRST, 0);
-        lottoResult.put(Rank.SECOND, 0);
-        lottoResult.put(Rank.THIRD, 0);
-        lottoResult.put(Rank.FOURTH, 0);
-        lottoResult.put(Rank.FIFTH, 0);
-        lottoResult.put(Rank.NO_RANK_TWO, 0);
-        lottoResult.put(Rank.NO_RANK_ONE, 0);
-        lottoResult.put(Rank.NO_RANK_ZERO, 0);
-    }
 }
