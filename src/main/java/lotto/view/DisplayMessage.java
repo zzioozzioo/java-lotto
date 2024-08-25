@@ -6,7 +6,7 @@ import lotto.domain.User;
 import java.util.List;
 
 
-public class DisplayResult {
+public class DisplayMessage {
 
 
     public void displayBuyHowManyLotto(User user) {
