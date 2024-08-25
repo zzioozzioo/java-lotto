@@ -26,13 +26,18 @@ public class Controller {
 
     public void run() {
 
-        getInitialLottoResult();
-        getBuyAmountInput();
-        getAllUserLottoNumber();
-        getWinningNumberInput();
-        getBonusNumberInput();
-        getLottoResult();
-        getWinningStatistics();
+        try {
+            getInitialLottoResult();
+            getBuyAmountInput();
+            getAllUserLottoNumber();
+            getWinningNumberInput();
+            getBonusNumberInput();
+            getLottoResult();
+            getWinningStatistics();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private void getInitialLottoResult() {
