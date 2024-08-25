@@ -12,7 +12,7 @@ public class User {
     private long winnings;
     private double rateOfReturn;
 
-    private List<Integer> userNumberList; // 발행받은 로또 번호
+    private List<Integer> userNumberList = new ArrayList<Integer>(); // 발행받은 로또 번호
 
     // 왜 final?
     private ArrayList<Lotto> purchasedLotteries = new ArrayList<>(); // 구매한 로또 전체 번호 저장된 리스트
@@ -52,11 +52,6 @@ public class User {
     public void setRateOfReturn(double rateOfReturn) {
         this.rateOfReturn = rateOfReturn;
     }
-
-    // TODO: 사용자 로또 번호 리스트를 어떻게 구현..? 구매한 개수만큼 리스트를 만들어야 하나..
-    //  배열 안에 리스트 ArrayList<ST>[] userNumberList = new ArrayList[로또 수량]; 이런 식으로?
-    //  ㄴㄴ 리스트 하나만 만들어서 실시간으로 로또 수량만큼 [6개의 로또 번호 출력 + 당첨 내역에 업데이트] 반복
-
 
     public List<Integer> getUserNumberList() {
         return userNumberList;
