@@ -1,5 +1,6 @@
 package lotto.service;
 
+import lotto.domain.Winning;
 import lotto.validation.Validator;
 
 import java.util.List;
@@ -34,11 +35,11 @@ public class ConvertService {
         return num;
     }
 
-    public int convertBonusNumber(String str) {
+    public int convertBonusNumber(String str, Winning winning) {
         validator.isNumeric(str);
         int num = convert(str);
 
-        validator.validateBonusNumber(num);
+        validator.validateBonusNumber(num, winning);
         return num;
     }
     public int convert(String str) {
