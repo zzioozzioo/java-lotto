@@ -5,6 +5,7 @@ import lotto.domain.Rank;
 import lotto.domain.Winning;
 import lotto.domain.User;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -99,8 +100,11 @@ public class CalcService {
         long amount = user.getBuyAmount();
 
         double rateOfReturn = user.getWinnings() / (double)amount;
-        rateOfReturn = Math.round(rateOfReturn * 100);
 
-        user.setRateOfReturn(rateOfReturn);
+        // 소수점 둘째 자리까지 유지하기 위해 DecimalFormat 사용
+        DecimalFormat df = new DecimalFormat("#.##");
+        rateOfReturn = Double.parseDouble(df.format(rateOfReturn * 100)) /100;
+
+        user.setRateOfReturn(rateOfReturn * 100.0);
     }
 }
