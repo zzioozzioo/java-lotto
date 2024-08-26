@@ -2,9 +2,7 @@ package lotto.domain;
 
 public enum Rank {
 
-    NO_RANK_ZERO(0, 0L, "0"),
-    NO_RANK_ONE(0, 0L, "0"),
-    NO_RANK_TWO(0, 0L, "0"),
+    MISS(0, 0, "0"),
     FIFTH(3, 5_000L, "5,000"),
     FOURTH(4, 50_000L, "50,000"),
     THIRD(5, 1_500_000L, "1,500,000"),
@@ -15,10 +13,28 @@ public enum Rank {
     private final long prize;
     private final String convertPrize;
 
+    private static final String ERROR_MESSAGE = "[ERROR]";
+
     Rank(int count, long prize, String convertPrize) {
         this.count = count;
         this.prize = prize;
         this.convertPrize = convertPrize;
+    }
+
+    public Rank determineRank(int count, boolean bonus) {
+
+        if (count < FIFTH.getCount()) { // 등수 없음
+            return MISS;
+        }
+        if (count == THIRD.getCount() && bonus) { // 2등
+            return SECOND;
+        }
+        for (Rank rank : values()) {
+            if (count == rank.getCount() && rank != SECOND) {
+                return rank;
+            }
+        }
+        throw new IllegalArgumentException(ERROR_MESSAGE);
     }
 
     public int getCount() {
