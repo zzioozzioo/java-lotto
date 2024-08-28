@@ -4,7 +4,7 @@ import lotto.constant.ConstNumber;
 import lotto.domain.Lotto;
 import lotto.domain.Rank;
 import lotto.domain.Winning;
-import lotto.domain.User;
+import lotto.domain.InputAmount;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -17,71 +17,34 @@ public class CalcService {
     /**
      * 로또 수량 계산 기능
      */
-    public void countHowManyLotto(User user) {
-        long amount = user.getBuyAmount();
-        user.setLottoQuantity((int)(amount / ConstNumber.LOTTO_PRICE.getNum()));
+    public int countHowManyLotto(InputAmount inputAmount) { // 완
+        return (int)inputAmount.getBuyAmount() / ConstNumber.LOTTO_PRICE.getNum();
     }
 
     /**
      * 당첨 내역 계산 기능
      */
-    public void calculateLottoResult(User user, Winning winning) {
-        List<Integer> winningNumberList = winning.getWinningNumberList(); // 당첨 번호 리스트
+    public HashMap<Rank, Integer> calculateLottoResult(HashMap<Rank, Integer> lottoResult, List<Lotto> lottoList, Winning winning) { // 완
 
-        for (Lotto lotto : user.getPurchasedLotteries()) {
-            int winningCount = calculateWinningCount(lotto, winningNumberList);
 
-            Rank matchRank = determineRank(lotto, winning, winningCount);
+        for (Lotto lotto : lottoList) {
+            Rank rank = winning.match(lotto);
+            int count = lottoResult.getOrDefault(rank, 0);
+            count++;
 
-            updateLottoResult(matchRank, user);
+            lottoResult.put(rank, count);
         }
-    }
 
-    public int calculateWinningCount(Lotto lotto, List<Integer> winningNumberList) {
-        long winningCount = lotto.getNumbers().stream()
-                .filter(winningNumberList::contains)
-                .count();
-        return (int)winningCount;
-    }
-
-    private Rank determineRank(Lotto lotto, Winning winning, int winningCount) {
-        Rank matchRank;
-
-        if (winningCount == 5) {
-            int bonusNumber = winning.getBonusNumber();
-
-            if (lotto.getNumbers().contains(bonusNumber)) { // 5개 일치, 보너스 볼 일치
-                matchRank = Rank.SECOND;
-                return matchRank;
-            }
-            matchRank = Rank.THIRD;
-            return matchRank;
-        }
-        matchRank = getRankByWinningCount(winningCount);
-        return matchRank;
-    }
-
-    public Rank getRankByWinningCount(int winningCount) {
-
-        for (Rank rank : Rank.values()) {
-            if (rank.getCount() == winningCount) {
-                return rank;
-            }
-        }
-        return Rank.NO_RANK_ZERO;
-    }
-
-    private void updateLottoResult(Rank rank, User user) {
-        HashMap<Rank, Integer> lottoResult = user.getLottoResult();
-        lottoResult.put(rank, lottoResult.getOrDefault(rank, 0) + 1);
+        return lottoResult;
     }
 
     /**
      * 당첨금 계산 기능
      */
-    public void calculateWinnings(User user) {
+    public long calculateWinnings(HashMap<Rank, Integer> lottoResult) {
         long winnings = 0;
-        Iterator<Map.Entry<Rank, Integer>> entries = user.getLottoResult().entrySet().iterator();
+        Iterator<Map.Entry<Rank, Integer>> entries = lottoResult.entrySet().iterator();
+
         while (entries.hasNext()) {
             Map.Entry<Rank, Integer> entry = entries.next();
             int count = entry.getValue();
@@ -89,21 +52,19 @@ public class CalcService {
 
             winnings += count * prize;
         }
-        user.setWinnings(winnings);
+        return winnings;
     }
 
     /**
      * 수익률 계산 기능
      */
-    public void calculateRateOfReturn(User user) {
-        long amount = user.getBuyAmount();
+    public double calculateRateOfReturn(long winnings, InputAmount inputAmount) {
+        long amount = inputAmount.getBuyAmount();
 
-        double rateOfReturn = user.getWinnings() / (double)amount;
+        double rateOfReturn = winnings / (double)amount;
 
         // 소수점 둘째 자리까지 유지하기 위해 DecimalFormat 사용
         DecimalFormat df = new DecimalFormat("#.##");
-        rateOfReturn = Double.parseDouble(df.format(rateOfReturn * 100));
-
-        user.setRateOfReturn(rateOfReturn);
+        return Double.parseDouble(df.format(rateOfReturn * 100));
     }
 }
