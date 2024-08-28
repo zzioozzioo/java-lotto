@@ -21,7 +21,7 @@ public enum Rank {
         this.convertPrize = convertPrize;
     }
 
-    public Rank determineRank(int count, boolean bonus) {
+    public static Rank determineRank(int count, boolean bonus) {
 
         if (count < FIFTH.getCount()) { // 등수 없음
             return MISS;
