@@ -28,34 +28,38 @@ public class Controller {
     public void run() {
 
         try {
-
-            InputAmount amount;
-            List<Lotto> allUserLotto;
-            Winning winning;
-            HashMap<Rank, Integer> lottoResult;
-
-            amount = getBuyAmountInput();
-            allUserLotto = getAllUserLottoNumber(amount);
-            winning = getWinningNumberInput();
-            lottoResult = getLottoResult(allUserLotto, winning);
-            getWinningStatistics(lottoResult, amount);
+            start();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
-    public InputAmount getBuyAmountInput() { // 완
+    public void start() {
+        InputAmount amount;
+        List<Lotto> allUserLotto;
+        Winning winning;
+        HashMap<Rank, Integer> lottoResult;
+
+        amount = getBuyAmountInput();
+
+        allUserLotto = getAllUserLottoNumber(amount);
+        winning = getWinningNumberInput();
+
+        lottoResult = getLottoResult(allUserLotto, winning);
+        getWinningStatistics(lottoResult, amount);
+    }
+
+    public InputAmount getBuyAmountInput() {
         inputMessage.getUserBuyAmount();
         int amount = convertService.convertInputAmount(readLine().trim());
         return new InputAmount(amount);
     }
 
-    public List<Lotto> getAllUserLottoNumber(InputAmount inputAmount) { // 완
+    public List<Lotto> getAllUserLottoNumber(InputAmount inputAmount) {
         int quantity = calcService.countHowManyLotto(inputAmount);
         displayMessage.displayBuyHowManyLotto(quantity);
 
-        List<Lotto> allUserLotto = new ArrayList<>(); // 이거 나중에 당첨 계산할 때도 필요
+        List<Lotto> allUserLotto = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
             allUserLotto.add(getOneUserLottoNumber());
         }
@@ -67,32 +71,31 @@ public class Controller {
         return lottoService.getRandomLottoNumber();
     }
 
-    public void displayUserLottoResult(List<Lotto> allUserLotto) { // 완
+    public void displayUserLottoResult(List<Lotto> allUserLotto) {
         for (Lotto lotto : allUserLotto) {
             displayMessage.displayUserLottoNumber(lotto.getNumbers());
         }
     }
 
-    public Winning getWinningNumberInput() { // 완
+    public Winning getWinningNumberInput() {
         inputMessage.getLottoWinningNumber();
         Lotto lotto = new Lotto(convertService.convertStringToList(readLine().trim()));
         return getBonusNumberInput(lotto);
     }
 
-    public Winning getBonusNumberInput(Lotto lotto) { // 완
+    public Winning getBonusNumberInput(Lotto lotto) {
         inputMessage.getLottoBonusNumber();
         int bonus = convertService.convertBonusNumber(readLine().trim());
         return new Winning(lotto, bonus);
     }
 
-    public HashMap<Rank, Integer> getLottoResult(List<Lotto> lottoList, Winning winning) { // 완
+    public HashMap<Rank, Integer> getLottoResult(List<Lotto> lottoList, Winning winning) {
         HashMap<Rank, Integer> lottoResult = lottoService.initLottoResult();
 
         return calcService.calculateLottoResult(lottoResult, lottoList, winning);
     }
 
-
-    public void getWinningStatistics(HashMap<Rank, Integer> lottoResult, InputAmount amount) { // 완
+    public void getWinningStatistics(HashMap<Rank, Integer> lottoResult, InputAmount amount) {
         displayMessage.displayWinningStatistics();
 
         displayMessage.displayWinningRank(lottoResult);
