@@ -18,7 +18,7 @@ public class CalcService {
      * 로또 수량 계산 기능
      */
     public int countHowManyLotto(InputAmount inputAmount) { // 완
-        return (int)inputAmount.getBuyAmount() / ConstNumber.LOTTO_PRICE.getNum();
+        return inputAmount.calculateLottoQuantity();
     }
 
     /**
@@ -59,7 +59,7 @@ public class CalcService {
      * 수익률 계산 기능
      */
     public double calculateRateOfReturn(long winnings, InputAmount inputAmount) {
-        long amount = inputAmount.getBuyAmount();
+        long amount = inputAmount.getTotalAmount();
 
         double rateOfReturn = winnings / (double)amount;
 
