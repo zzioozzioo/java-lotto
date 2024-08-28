@@ -16,9 +16,6 @@ public class ConvertService {
         validateNumericArray(strArr);
 
         List<Integer> list = convertArrayToList(strArr);
-
-        validator.validateWinningNumber(list);
-
         return list;
     }
 
@@ -36,22 +33,15 @@ public class ConvertService {
 
     public int convertInputAmount(String str) {
         validator.isNumeric(str);
-        int num = convert(str);
-
-        validator.validateInputAmount(num);
-        return num;
+        return convert(str);
     }
 
-    public int convertBonusNumber(String str, Winning winning) {
+    public int convertBonusNumber(String str) {
         validator.isNumeric(str);
-        int num = convert(str);
-
-        validator.validateBonusNumber(num, winning);
-        return num;
+        return convert(str);
     }
 
     public int convert(String str) {
-        int num = Integer.parseInt(str);
-        return num;
+        return Integer.parseInt(str);
     }
 }
