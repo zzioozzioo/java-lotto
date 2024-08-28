@@ -4,7 +4,8 @@ import static camp.nextstep.edu.missionutils.Console.readLine;
 
 
 import lotto.domain.Lotto;
-import lotto.domain.User;
+import lotto.domain.InputAmount;
+import lotto.domain.Rank;
 import lotto.domain.Winning;
 import lotto.service.CalcService;
 import lotto.service.ConvertService;
@@ -12,92 +13,93 @@ import lotto.service.LottoService;
 import lotto.view.DisplayMessage;
 import lotto.view.InputMessage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Controller {
 
-    private User user = new User();
-    private Winning winning = new Winning();
-    private ConvertService convertService = new ConvertService();
-    private LottoService lottoService = new LottoService();
-    private CalcService calcService = new CalcService();
-    private InputMessage inputMessage = new InputMessage();
-    private DisplayMessage displayMessage = new DisplayMessage();
+    private final ConvertService convertService = new ConvertService();
+    private final LottoService lottoService = new LottoService();
+    private final CalcService calcService = new CalcService();
+    private final InputMessage inputMessage = new InputMessage();
+    private final DisplayMessage displayMessage = new DisplayMessage();
 
     public void run() {
 
         try {
-            getInitialLottoResult();
-            getBuyAmountInput();
-            getAllUserLottoNumber();
-            getWinningNumberInput();
-            getBonusNumberInput();
-            getLottoResult();
-            getWinningStatistics();
+
+            InputAmount amount;
+            List<Lotto> allUserLotto;
+            Winning winning;
+            HashMap<Rank, Integer> lottoResult;
+
+            amount = getBuyAmountInput();
+            allUserLotto = getAllUserLottoNumber(amount);
+            winning = getWinningNumberInput();
+            lottoResult = getLottoResult(allUserLotto, winning);
+            getWinningStatistics(lottoResult, amount);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
     }
 
-    private void getInitialLottoResult() {
-        lottoService.initLottoResult(user);
-    }
-
-    public void getBuyAmountInput() {
+    public InputAmount getBuyAmountInput() { // 완
         inputMessage.getUserBuyAmount();
-        int amount = convertService.convertInputAmount(readLine());
-        user.setBuyAmount(amount);
+        int amount = convertService.convertInputAmount(readLine().trim());
+        return new InputAmount(amount);
     }
 
-    public void getAllUserLottoNumber() {
-        calcService.countHowManyLotto(user);
-        displayMessage.displayBuyHowManyLotto(user);
-        int quantity = user.getLottoQuantity();
+    public List<Lotto> getAllUserLottoNumber(InputAmount inputAmount) { // 완
+        int quantity = calcService.countHowManyLotto(inputAmount);
+        displayMessage.displayBuyHowManyLotto(quantity);
 
+        List<Lotto> allUserLotto = new ArrayList<>(); // 이거 나중에 당첨 계산할 때도 필요
         for (int i = 0; i < quantity; i++) {
-            getOneUserLottoNumber();
+            allUserLotto.add(getOneUserLottoNumber());
         }
-        displayUserLottoResult();
+        displayUserLottoResult(allUserLotto);
+        return allUserLotto;
     }
 
-    public void getOneUserLottoNumber() {
-        Lotto lotto = lottoService.getRandomLottoNumber(user);
-        user.buyLotto(lotto);
+    public Lotto getOneUserLottoNumber() { // 완
+        return lottoService.getRandomLottoNumber();
     }
 
-    public void displayUserLottoResult() {
-        for (Lotto lotto : user.getPurchasedLotteries()) {
+    public void displayUserLottoResult(List<Lotto> allUserLotto) { // 완
+        for (Lotto lotto : allUserLotto) {
             displayMessage.displayUserLottoNumber(lotto.getNumbers());
         }
     }
 
-    public void getWinningNumberInput() {
+    public Winning getWinningNumberInput() { // 완
         inputMessage.getLottoWinningNumber();
-        List<Integer> list = convertService.convertStringToList(readLine());
-        winning.setWinningNumberList(list);
+        Lotto lotto = new Lotto(convertService.convertStringToList(readLine().trim()));
+        return getBonusNumberInput(lotto);
     }
 
-    public void getBonusNumberInput() {
+    public Winning getBonusNumberInput(Lotto lotto) { // 완
         inputMessage.getLottoBonusNumber();
-        int bonus = convertService.convertBonusNumber(readLine(), winning);
-        winning.setBonusNumber(bonus);
+        int bonus = convertService.convertBonusNumber(readLine().trim());
+        return new Winning(lotto, bonus);
     }
 
-    public void getLottoResult() {
-        calcService.calculateLottoResult(user, winning);
+    public HashMap<Rank, Integer> getLottoResult(List<Lotto> lottoList, Winning winning) { // 완
+        HashMap<Rank, Integer> lottoResult = lottoService.initLottoResult();
+
+        return calcService.calculateLottoResult(lottoResult, lottoList, winning);
     }
 
 
-    public void getWinningStatistics() {
+    public void getWinningStatistics(HashMap<Rank, Integer> lottoResult, InputAmount amount) { // 완
         displayMessage.displayWinningStatistics();
 
-        // 일치 개수별 당첨 개수 출력
-        displayMessage.displayWinningRank(user);
+        displayMessage.displayWinningRank(lottoResult);
 
-        // 수익률 출력
-        calcService.calculateWinnings(user);
-        calcService.calculateRateOfReturn(user);
-        displayMessage.displayRateOfReturn(user);
+        long winnings = calcService.calculateWinnings(lottoResult);
+        double rateOfReturn = calcService.calculateRateOfReturn(winnings, amount);
+
+        displayMessage.displayRateOfReturn(rateOfReturn);
     }
 }
