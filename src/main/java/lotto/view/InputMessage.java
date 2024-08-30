@@ -1,7 +1,5 @@
 package lotto.view;
 
-// View: 콘솔의 입출력 관리
-// 사용자 입력, 화면 출력
 public class InputMessage {
 
     public void getUserBuyAmount() {

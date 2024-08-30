@@ -1,6 +1,5 @@
 package lotto.service;
 
-import lotto.constant.ConstNumber;
 import lotto.domain.Lotto;
 import lotto.domain.Rank;
 import lotto.domain.Winning;

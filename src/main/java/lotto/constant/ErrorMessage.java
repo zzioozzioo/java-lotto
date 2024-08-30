@@ -2,8 +2,6 @@ package lotto.constant;
 
 public enum ErrorMessage {
 
-    // TODO: 보너스 숫자 1개만 들어오는지 확인하는 로직 있는지 확인!!
-
     NOT_NUMERIC("COMMON", "[ERROR] 숫자를 입력해야 합니다."),
     NOT_CORRECT_LENGTH("WINNING", "[ERROR] 당첨 번호의 개수는 " + ConstNumber.LOTTO_NUM_LENGTH.getNum() + "개여야 합니다."),
     NOT_IN_RANGE_WINNING_NUM("WINNING",
@@ -20,10 +18,6 @@ public enum ErrorMessage {
     ErrorMessage(String category, String errorMessage) {
         this.category = category;
         this.errorMessage = errorMessage;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public String getErrorMessage() {

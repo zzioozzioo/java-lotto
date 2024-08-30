@@ -50,6 +50,4 @@ public class Lotto {
         return numbers.contains(number);
     }
 
-    
-
 }
