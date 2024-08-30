@@ -100,8 +100,8 @@ public class Controller {
 
         displayMessage.displayWinningRank(lottoResult);
 
-        long winnings = calcService.calculateWinnings(lottoResult);
-        double rateOfReturn = calcService.calculateRateOfReturn(winnings, amount);
+        double winnings = calcService.calculateWinnings(lottoResult);
+        String rateOfReturn = calcService.calculateRateOfReturn(winnings, amount);
 
         displayMessage.displayRateOfReturn(rateOfReturn);
     }
