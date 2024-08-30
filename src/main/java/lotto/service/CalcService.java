@@ -24,8 +24,7 @@ public class CalcService {
     /**
      * 당첨 내역 계산 기능
      */
-    public HashMap<Rank, Integer> calculateLottoResult(HashMap<Rank, Integer> lottoResult, List<Lotto> lottoList, Winning winning) { // 완
-
+    public HashMap<Rank, Integer> calculateLottoResult(HashMap<Rank, Integer> lottoResult, List<Lotto> lottoList, Winning winning) {
 
         for (Lotto lotto : lottoList) {
             Rank rank = winning.match(lotto);
@@ -42,6 +41,7 @@ public class CalcService {
      * 당첨금 계산 기능
      */
     public double calculateWinnings(HashMap<Rank, Integer> lottoResult) {
+
         double winnings = 0;
         Iterator<Map.Entry<Rank, Integer>> entries = lottoResult.entrySet().iterator();
 
@@ -59,6 +59,7 @@ public class CalcService {
      * 수익률 계산 기능
      */
     public String calculateRateOfReturn(double winnings, InputAmount inputAmount) {
+
         long amount = inputAmount.getTotalAmount();
         double rateOfReturn = (winnings / (double) amount) * 100;
 
