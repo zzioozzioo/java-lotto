@@ -31,40 +31,10 @@ public class Winning {
         }
     }
 
-    public Rank match(Lotto lottoNumber) {
-        int count = lottoNumber.countMatch(lotto);
-        boolean bonus = lottoNumber.containNumber(bonusNumber);
+    public Rank match(Lotto userLottoNumbers) {
+        int count = userLottoNumbers.countMatch(lotto);
+        boolean bonus = userLottoNumbers.containNumber(bonusNumber);
         return Rank.determineRank(count, bonus);
     }
-
-    // 당첨 번호 입력받을 때 필요한 동작
-    // 1.
-
-    // 당첨 결과 생성에 필요한 동작
-    // 1. 당첨 번호와 사용자 구매 랜덤 번호 비교 -> service?
-    // 2. 일치 개수 계산 -> service
-    // 3. 일치 개수에 따른 rank 결정
-    // 4. 일치 개수별 결과 저장 -> controller
-
-    // 필요한 핵심 도메인 로직
-    // 1. 일치 개수에 따른 rank 결정
-    // return Rank,,,
-
-
-//    public List<Integer> getWinningNumberList() {
-//        return winningNumberList;
-//    }
-//
-//    public void setWinningNumberList(List<Integer> winningNumberList) {
-//        this.winningNumberList = winningNumberList;
-//    }
-//
-//    public int getBonusNumber() {
-//        return bonusNumber;
-//    }
-//
-//    public void setBonusNumber(int bonusNumber) {
-//        this.bonusNumber = bonusNumber;
-//    }
 
 }
