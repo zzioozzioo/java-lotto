@@ -8,19 +8,13 @@ public class InputAmount {
     private final long buyAmount;
 
     public InputAmount(int buyAmount) {
-        validate(buyAmount);
+        validateInputAmount(buyAmount);
         this.buyAmount = buyAmount;
     }
 
-    private void validate(int buyAmount) {
-        validateInputAmount(buyAmount);
+    private void validateInputAmount(int buyAmount) {
         isInputAmountInRange(buyAmount);
         hasChange(buyAmount);
-    }
-
-    public void validateInputAmount(int amount) {
-        isInputAmountInRange(amount);
-        hasChange(amount);
     }
 
     private void isInputAmountInRange(int amount) {
