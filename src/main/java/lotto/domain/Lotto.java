@@ -2,11 +2,8 @@ package lotto.domain;
 
 import lotto.constant.ConstNumber;
 import lotto.constant.ErrorMessage;
-import lotto.validation.Validator;
 
 import java.util.List;
-
-import static java.util.Arrays.stream;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -53,22 +50,6 @@ public class Lotto {
         return numbers.contains(number);
     }
 
-    // TODO: 추가 기능 구현
-
-    // [로또 번호 생성에 필요한 동작]
-    // 1. 랜덤 숫자 생성 -> service
-    // 2. 숫자가 유효한지 확인
-    // 3. 유효하다면 정렬 후 생성된 숫자를 저장하고, 그렇지 않다면 에러 내뿜기 -> controller(?)
-
-    // 필요한 핵심 도메인 로직
-    // 1. 숫자가 유효한지 확인
-    // -> 유효성 검사를 하는 validate 코드를 이 클래스로 옮기기
-
-    // [일치 개수 확인에 필요한 동작]
-    // 1. 당첨 번호 리스트와 현재 번호 리스트(numbers) 비교 후 일치하는지 확인
-    // 2. 보너스 번호도 일치하는지 확인
-
-    // 필요한 핵심 도메인 로직
-    // 1, 2 둘 다!!
+    
 
 }
