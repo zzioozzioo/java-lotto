@@ -41,8 +41,8 @@ public class CalcService {
     /**
      * 당첨금 계산 기능
      */
-    public long calculateWinnings(HashMap<Rank, Integer> lottoResult) {
-        long winnings = 0;
+    public double calculateWinnings(HashMap<Rank, Integer> lottoResult) {
+        double winnings = 0;
         Iterator<Map.Entry<Rank, Integer>> entries = lottoResult.entrySet().iterator();
 
         while (entries.hasNext()) {
@@ -58,13 +58,12 @@ public class CalcService {
     /**
      * 수익률 계산 기능
      */
-    public double calculateRateOfReturn(long winnings, InputAmount inputAmount) {
+    public String calculateRateOfReturn(double winnings, InputAmount inputAmount) {
         long amount = inputAmount.getTotalAmount();
+        double rateOfReturn = (winnings / (double) amount) * 100;
 
-        double rateOfReturn = winnings / (double)amount;
+        DecimalFormat df = new DecimalFormat("#,##0.##");
 
-        // 소수점 둘째 자리까지 유지하기 위해 DecimalFormat 사용
-        DecimalFormat df = new DecimalFormat("#.##");
-        return Double.parseDouble(df.format(rateOfReturn * 100));
+        return df.format(rateOfReturn);
     }
 }
