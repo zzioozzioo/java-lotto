@@ -1,7 +1,6 @@
 package lotto.service;
 
-import lotto.domain.Winning;
-import lotto.validation.Validator;
+import lotto.constant.ErrorMessage;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +8,18 @@ import java.util.stream.IntStream;
 
 public class ConvertService {
 
-    private Validator validator = new Validator();
+    public void isNumeric(String s) {
+
+        if (s == null || s.isEmpty()) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_NUMERIC.getErrorMessage());
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                throw new IllegalArgumentException(ErrorMessage.NOT_NUMERIC.getErrorMessage());
+            }
+        }
+    }
 
     public List<Integer> convertStringToList(String str) {
         String[] strArr = str.split(",");
@@ -21,7 +31,7 @@ public class ConvertService {
 
     public void validateNumericArray(String[] strArr) {
         for (String s : strArr) {
-            validator.isNumeric(s);
+            isNumeric(s);
         }
     }
 
@@ -32,12 +42,12 @@ public class ConvertService {
     }
 
     public int convertInputAmount(String str) {
-        validator.isNumeric(str);
+        isNumeric(str);
         return convert(str);
     }
 
     public int convertBonusNumber(String str) {
-        validator.isNumeric(str);
+        isNumeric(str);
         return convert(str);
     }
 
