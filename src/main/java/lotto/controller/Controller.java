@@ -1,17 +1,14 @@
 package lotto.controller;
 
-import static camp.nextstep.edu.missionutils.Console.readLine;
-
 
 import lotto.domain.Lotto;
 import lotto.domain.InputAmount;
 import lotto.domain.Rank;
 import lotto.domain.Winning;
 import lotto.service.CalcService;
-import lotto.service.ConvertService;
 import lotto.service.LottoService;
-import lotto.view.DisplayMessage;
-import lotto.view.InputMessage;
+import lotto.view.OutputView;
+import lotto.view.InputView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,11 +16,10 @@ import java.util.List;
 
 public class Controller {
 
-    private final ConvertService convertService = new ConvertService();
     private final LottoService lottoService = new LottoService();
     private final CalcService calcService = new CalcService();
-    private final InputMessage inputMessage = new InputMessage();
-    private final DisplayMessage displayMessage = new DisplayMessage();
+    private final InputView inputMessage = new InputView();
+    private final OutputView displayMessage = new OutputView();
 
     public void run() {
 
@@ -50,14 +46,13 @@ public class Controller {
     }
 
     public InputAmount getBuyAmountInput() {
-        inputMessage.getUserBuyAmount();
-        int amount = convertService.convertInputAmount(readLine().trim());
+        int amount = inputMessage.readUserBuyAmount();
         return new InputAmount(amount);
     }
 
     public List<Lotto> getAllUserLottoNumber(InputAmount inputAmount) {
         int quantity = calcService.countHowManyLotto(inputAmount);
-        displayMessage.displayBuyHowManyLotto(quantity);
+        displayMessage.printBuyHowManyLotto(quantity);
 
         List<Lotto> allUserLotto = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
@@ -73,19 +68,17 @@ public class Controller {
 
     public void displayUserLottoResult(List<Lotto> allUserLotto) {
         for (Lotto lotto : allUserLotto) {
-            displayMessage.displayUserLottoNumber(lotto.getNumbers());
+            displayMessage.printUserLottoNumber(lotto.getNumbers());
         }
     }
 
     public Winning getWinningNumberInput() {
-        inputMessage.getLottoWinningNumber();
-        Lotto lotto = new Lotto(convertService.convertStringToList(readLine().trim()));
+        Lotto lotto = new Lotto(inputMessage.readLottoWinningNumber());
         return getBonusNumberInput(lotto);
     }
 
     public Winning getBonusNumberInput(Lotto lotto) {
-        inputMessage.getLottoBonusNumber();
-        int bonus = convertService.convertBonusNumber(readLine().trim());
+        int bonus = inputMessage.getLottoBonusNumber();
         return new Winning(lotto, bonus);
     }
 
@@ -96,13 +89,13 @@ public class Controller {
     }
 
     public void getWinningStatistics(HashMap<Rank, Integer> lottoResult, InputAmount amount) {
-        displayMessage.displayWinningStatistics();
+        displayMessage.printWinningStatistics();
 
-        displayMessage.displayWinningRank(lottoResult);
+        displayMessage.printWinningRank(lottoResult);
 
         double winnings = calcService.calculateWinnings(lottoResult);
         String rateOfReturn = calcService.calculateRateOfReturn(winnings, amount);
 
-        displayMessage.displayRateOfReturn(rateOfReturn);
+        displayMessage.printRateOfReturn(rateOfReturn);
     }
 }
