@@ -34,7 +34,6 @@ public class Controller {
         LottoResult lottoResult = new LottoResult();
         lottoResult.calculateLottoResult(allUserLotto, winning);
 
-        // TODO: 여기까지 못 가는 듯.. 당첨 통계를 내지 못하고 NullPointException으로 종료됨
         getWinningStatistics(lottoResult, amount);
     }
 

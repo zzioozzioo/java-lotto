@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LottoResult {
 
-    HashMap<Rank, Integer> lottoResult;
+    HashMap<Rank, Integer> lottoResult = new HashMap<>();
 
     public HashMap<Rank, Integer> getLottoResult() {
         return lottoResult;
