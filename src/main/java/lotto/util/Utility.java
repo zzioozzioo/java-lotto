@@ -2,6 +2,10 @@ package lotto.util;
 
 import lotto.constant.ErrorMessage;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Utility {
 
     public static int convert(String str) {
@@ -20,6 +24,15 @@ public class Utility {
                 throw new IllegalArgumentException(ErrorMessage.NOT_NUMERIC.getErrorMessage());
             }
         }
+    }
+
+    public static String[] splitString(String input) {
+        return input.split(",");
+    }
+
+    public static List<Integer> convertStrArrToList(String[] strArr) {
+        return Arrays.stream(strArr).map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
 }

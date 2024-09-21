@@ -78,7 +78,7 @@ public class Controller {
     }
 
     public Winning getBonusNumberInput(Lotto lotto) {
-        int bonus = inputMessage.getLottoBonusNumber();
+        int bonus = inputMessage.readLottoBonusNumber();
         return new Winning(lotto, bonus);
     }
 
