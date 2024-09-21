@@ -34,7 +34,7 @@ public class WinningTest {
         Winning winning = new Winning(winningNumbers, 7);
 
         Lotto userLottoNumbers = new Lotto(List.of(1, 2, 7, 8, 9, 10));
-        Rank matchRank = winning.match(userLottoNumbers);
+        Rank matchRank = winning.matchRank(userLottoNumbers);
 
         assertEquals(Rank.MISS, matchRank);
     }
@@ -46,7 +46,7 @@ public class WinningTest {
         Winning winning = new Winning(winningNumbers, 7);
 
         Lotto userLottoNumbers = new Lotto(List.of(1, 2, 3, 7, 8, 9));
-        Rank matchRank = winning.match(userLottoNumbers);
+        Rank matchRank = winning.matchRank(userLottoNumbers);
 
         assertEquals(Rank.FIFTH, matchRank);
     }
@@ -58,7 +58,7 @@ public class WinningTest {
         Winning winning = new Winning(winningNumbers, 7);
 
         Lotto userLottoNumbers = new Lotto(List.of(1, 2, 3, 4, 7, 8));
-        Rank matchRank = winning.match(userLottoNumbers);
+        Rank matchRank = winning.matchRank(userLottoNumbers);
 
         assertEquals(Rank.FOURTH, matchRank);
     }
@@ -70,7 +70,7 @@ public class WinningTest {
         Winning winning = new Winning(winningNumbers, 7);
 
         Lotto userLottoNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 8));
-        Rank matchRank = winning.match(userLottoNumbers);
+        Rank matchRank = winning.matchRank(userLottoNumbers);
 
         assertEquals(Rank.THIRD, matchRank);
     }
@@ -82,7 +82,7 @@ public class WinningTest {
         Winning winning = new Winning(winningNumbers, 7);
 
         Lotto userLottoNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 7));
-        Rank matchRank = winning.match(userLottoNumbers);
+        Rank matchRank = winning.matchRank(userLottoNumbers);
 
         assertEquals(Rank.SECOND, matchRank);
     }
@@ -94,7 +94,7 @@ public class WinningTest {
         Winning winning = new Winning(winningNumbers, 7);
 
         Lotto userLottoNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-        Rank matchRank = winning.match(userLottoNumbers);
+        Rank matchRank = winning.matchRank(userLottoNumbers);
 
         assertEquals(Rank.FIRST, matchRank);
     }

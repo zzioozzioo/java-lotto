@@ -16,7 +16,7 @@ public class Winning {
 
     public void validateBonusNumber(Lotto lotto, int bonusNumber) {
         isBonusNumberInRange(bonusNumber);
-        isBonusNumberDuplicate(lotto, bonusNumber);
+        isBonusNumberDuplicated(lotto, bonusNumber);
     }
 
     private void isBonusNumberInRange(int num) {
@@ -25,14 +25,14 @@ public class Winning {
         }
     }
 
-    public void isBonusNumberDuplicate(Lotto lotto, int num) {
-        if (lotto.getNumbers().contains(num)) {
+    public void isBonusNumberDuplicated(Lotto lotto, int num) {
+        if (lotto.containNumber(num)) {
             throw new IllegalArgumentException(ErrorMessage.DUPLICATED_WINNING_NUM.getErrorMessage());
         }
     }
 
-    public Rank match(Lotto userLottoNumbers) {
-        int count = userLottoNumbers.countMatch(lotto);
+    public Rank matchRank(Lotto userLottoNumbers) {
+        int count = userLottoNumbers.matchCount(lotto);
         boolean bonus = userLottoNumbers.containNumber(bonusNumber);
         return Rank.determineRank(count, bonus);
     }

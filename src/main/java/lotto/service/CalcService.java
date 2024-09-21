@@ -26,7 +26,7 @@ public class CalcService {
     public HashMap<Rank, Integer> calculateLottoResult(HashMap<Rank, Integer> lottoResult, List<Lotto> lottoList, Winning winning) {
 
         for (Lotto lotto : lottoList) {
-            Rank rank = winning.match(lotto);
+            Rank rank = winning.matchRank(lotto);
             int count = lottoResult.getOrDefault(rank, 0);
             count++;
 
