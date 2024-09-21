@@ -12,8 +12,8 @@ import java.util.List;
 public class Controller {
 
     private final LottoService lottoService = new LottoService();
-    private final InputView inputMessage = new InputView();
-    private final OutputView displayMessage = new OutputView();
+    private final InputView inputView = new InputView();
+    private final OutputView outputView = new OutputView();
 
     public void run() {
 
@@ -36,13 +36,13 @@ public class Controller {
     }
 
     public InputAmount getBuyAmountInput() {
-        int amount = inputMessage.readUserBuyAmount();
+        int amount = inputView.readUserBuyAmount();
         return new InputAmount(amount);
     }
 
     public List<Lotto> getAllUserLottoNumber(InputAmount inputAmount) {
         int quantity = lottoService.countHowManyLotto(inputAmount);
-        displayMessage.printBuyHowManyLotto(quantity);
+        outputView.printBuyHowManyLotto(quantity);
 
         List<Lotto> allUserLotto = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
@@ -58,27 +58,27 @@ public class Controller {
 
     public void displayUserLottoResult(List<Lotto> allUserLotto) {
         for (Lotto lotto : allUserLotto) {
-            displayMessage.printUserLottoNumber(lotto.getNumbers());
+            outputView.printUserLottoNumber(lotto.getNumbers());
         }
     }
 
     public Winning getWinningNumberInput() {
-        Lotto lotto = new Lotto(inputMessage.readLottoWinningNumber());
+        Lotto lotto = new Lotto(inputView.readLottoWinningNumber());
         return getBonusNumberInput(lotto);
     }
 
     public Winning getBonusNumberInput(Lotto lotto) {
-        int bonus = inputMessage.readLottoBonusNumber();
+        int bonus = inputView.readLottoBonusNumber();
         return new Winning(lotto, bonus);
     }
 
     public void getWinningStatistics(LottoResult lottoResult, InputAmount amount) {
-        displayMessage.printWinningStatistics();
-        displayMessage.printWinningRank(lottoResult);
+        outputView.printWinningStatistics();
+        outputView.printWinningRank(lottoResult);
 
         double winnings = lottoService.calculateWinnings(lottoResult);
         String rateOfReturn = lottoService.calculateRateOfReturn(winnings, amount);
 
-        displayMessage.printRateOfReturn(rateOfReturn);
+        outputView.printRateOfReturn(rateOfReturn);
     }
 }
