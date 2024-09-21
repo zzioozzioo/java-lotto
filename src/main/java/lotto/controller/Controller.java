@@ -1,17 +1,13 @@
 package lotto.controller;
 
 
-import lotto.domain.Lotto;
-import lotto.domain.InputAmount;
-import lotto.domain.Rank;
-import lotto.domain.Winning;
+import lotto.domain.*;
 import lotto.service.CalcService;
 import lotto.service.LottoService;
 import lotto.view.OutputView;
 import lotto.view.InputView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Controller {
@@ -31,17 +27,14 @@ public class Controller {
     }
 
     public void start() {
-        InputAmount amount;
-        List<Lotto> allUserLotto;
-        Winning winning;
-        HashMap<Rank, Integer> lottoResult;
+        InputAmount amount = getBuyAmountInput();
+        List<Lotto> allUserLotto = getAllUserLottoNumber(amount);
+        Winning winning = getWinningNumberInput();
 
-        amount = getBuyAmountInput();
+        LottoResult lottoResult = new LottoResult();
+        lottoResult.calculateLottoResult(allUserLotto, winning);
 
-        allUserLotto = getAllUserLottoNumber(amount);
-        winning = getWinningNumberInput();
-
-        lottoResult = getLottoResult(allUserLotto, winning);
+        // TODO: 여기까지 못 가는 듯.. 당첨 통계를 내지 못하고 NullPointException으로 종료됨
         getWinningStatistics(lottoResult, amount);
     }
 
@@ -82,13 +75,7 @@ public class Controller {
         return new Winning(lotto, bonus);
     }
 
-    public HashMap<Rank, Integer> getLottoResult(List<Lotto> lottoList, Winning winning) {
-        HashMap<Rank, Integer> lottoResult = lottoService.initLottoResult();
-
-        return calcService.calculateLottoResult(lottoResult, lottoList, winning);
-    }
-
-    public void getWinningStatistics(HashMap<Rank, Integer> lottoResult, InputAmount amount) {
+    public void getWinningStatistics(LottoResult lottoResult, InputAmount amount) {
         displayMessage.printWinningStatistics();
 
         displayMessage.printWinningRank(lottoResult);
