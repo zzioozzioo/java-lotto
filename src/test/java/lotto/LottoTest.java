@@ -41,7 +41,7 @@ class LottoTest {
         Lotto winningNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 6));
 
         //when
-        int count = userLottoNumbers.countMatch(winningNumbers);
+        int count = userLottoNumbers.matchCount(winningNumbers);
 
         //then
         assertEquals(count, 6);

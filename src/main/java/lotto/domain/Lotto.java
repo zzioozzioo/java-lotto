@@ -8,6 +8,10 @@ import java.util.List;
 public class Lotto {
     private final List<Integer> numbers;
 
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
     public Lotto(List<Integer> numbers) {
         validate(numbers);
         this.numbers = numbers;
@@ -38,11 +42,7 @@ public class Lotto {
         }
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
-    }
-
-    public int countMatch(Lotto winningLotto) {
+    public int matchCount(Lotto winningLotto) {
         return (int)numbers.stream().filter(winningLotto::containNumber).count();
     }
 
