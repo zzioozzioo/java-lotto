@@ -1,13 +1,43 @@
 package lotto.domain;
 
-public enum Rank {
+public enum Rank implements RankOperation {
 
-    MISS(0, 0, "0"),
-    FIFTH(3, 5_000L, "5,000"),
-    FOURTH(4, 50_000L, "50,000"),
-    THIRD(5, 1_500_000L, "1,500,000"),
-    SECOND(5, 30_000_000L, "30,000,000"),
-    FIRST(6, 2_000_000_000L, "2,000,000,000");
+    MISS(0, 0, "0"){
+        @Override
+        public boolean matches(int count, boolean bonus) {
+            return count < FIFTH.getCount();
+        }
+    },
+    FIFTH(3, 5_000L, "5,000") {
+        @Override
+        public boolean matches(int count, boolean bonus) {
+            return count == getCount();
+        }
+    },
+    FOURTH(4, 50_000L, "50,000") {
+        @Override
+        public boolean matches(int count, boolean bonus) {
+            return count == getCount();
+        }
+    },
+    THIRD(5, 1_500_000L, "1,500,000") {
+        @Override
+        public boolean matches(int count, boolean bonus) {
+            return count == getCount() && !bonus;
+        }
+    },
+    SECOND(5, 30_000_000L, "30,000,000") {
+        @Override
+        public boolean matches(int count, boolean bonus) {
+            return count == getCount() && bonus;
+        }
+    },
+    FIRST(6, 2_000_000_000L, "2,000,000,000") {
+        @Override
+        public boolean matches(int count, boolean bonus) {
+            return count == getCount();
+        }
+    };
 
     private final int count;
     private final long prize;
@@ -21,22 +51,6 @@ public enum Rank {
         this.convertPrize = convertPrize;
     }
 
-    public static Rank determineRank(int count, boolean bonus) {
-
-        if (count < FIFTH.getCount()) { // 등수 없음
-            return MISS;
-        }
-        if (count == THIRD.getCount() && bonus) { // 2등
-            return SECOND;
-        }
-        for (Rank rank : values()) {
-            if (count == rank.getCount() && rank != SECOND) {
-                return rank;
-            }
-        }
-        throw new IllegalArgumentException(ERROR_MESSAGE);
-    }
-
     public int getCount() {
         return count;
     }
@@ -47,5 +61,15 @@ public enum Rank {
 
     public String getConvertPrize() {
         return convertPrize;
+    }
+
+    public static Rank determineRank(int count, boolean bonus) {
+
+        for (Rank rank : values()) {
+            if (rank.matches(count, bonus)) {
+                return rank;
+            }
+        }
+        throw new IllegalArgumentException(ERROR_MESSAGE);
     }
 }
