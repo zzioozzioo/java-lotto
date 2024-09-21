@@ -2,7 +2,6 @@ package lotto.controller;
 
 
 import lotto.domain.*;
-import lotto.service.CalcService;
 import lotto.service.LottoService;
 import lotto.view.OutputView;
 import lotto.view.InputView;
@@ -13,20 +12,19 @@ import java.util.List;
 public class Controller {
 
     private final LottoService lottoService = new LottoService();
-    private final CalcService calcService = new CalcService();
     private final InputView inputMessage = new InputView();
     private final OutputView displayMessage = new OutputView();
 
     public void run() {
 
         try {
-            start();
+            playLottoGame();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void start() {
+    public void playLottoGame() {
         InputAmount amount = getBuyAmountInput();
         List<Lotto> allUserLotto = getAllUserLottoNumber(amount);
         Winning winning = getWinningNumberInput();
@@ -43,7 +41,7 @@ public class Controller {
     }
 
     public List<Lotto> getAllUserLottoNumber(InputAmount inputAmount) {
-        int quantity = calcService.countHowManyLotto(inputAmount);
+        int quantity = lottoService.countHowManyLotto(inputAmount);
         displayMessage.printBuyHowManyLotto(quantity);
 
         List<Lotto> allUserLotto = new ArrayList<>();
@@ -76,11 +74,10 @@ public class Controller {
 
     public void getWinningStatistics(LottoResult lottoResult, InputAmount amount) {
         displayMessage.printWinningStatistics();
-
         displayMessage.printWinningRank(lottoResult);
 
-        double winnings = calcService.calculateWinnings(lottoResult);
-        String rateOfReturn = calcService.calculateRateOfReturn(winnings, amount);
+        double winnings = lottoService.calculateWinnings(lottoResult);
+        String rateOfReturn = lottoService.calculateRateOfReturn(winnings, amount);
 
         displayMessage.printRateOfReturn(rateOfReturn);
     }
