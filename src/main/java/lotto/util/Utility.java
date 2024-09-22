@@ -1,7 +1,8 @@
 package lotto.util;
 
-import lotto.constant.ErrorMessage;
 import lotto.domain.Lotto;
+import lotto.exception.HasNotValueException;
+import lotto.exception.NotNumericException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,14 +16,14 @@ public class Utility {
 
     public static void hasValue(String s) {
         if (s == null || s.isEmpty()) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_NUMERIC.getErrorMessage());
+            throw new HasNotValueException();
         }
     }
 
     public static void isNumeric(String s) {
         for (int i = 0; i < s.length(); i++) {
             if (!Character.isDigit(s.charAt(i))) {
-                throw new IllegalArgumentException(ErrorMessage.NOT_NUMERIC.getErrorMessage());
+                throw new NotNumericException();
             }
         }
     }

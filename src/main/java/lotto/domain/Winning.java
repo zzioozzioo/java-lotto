@@ -1,7 +1,8 @@
 package lotto.domain;
 
 import lotto.constant.ConstNumber;
-import lotto.constant.ErrorMessage;
+import lotto.exception.DuplicatedLottoNumException;
+import lotto.exception.NotInRangeWinningNumException;
 
 public class Winning {
 
@@ -21,13 +22,13 @@ public class Winning {
 
     private void isBonusNumberInRange(int num) {
         if (num < ConstNumber.LOTTO_FIRST_NUM.getNum() || num > ConstNumber.LOTTO_LAST_NUM.getNum()) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_IN_RANGE_WINNING_NUM.getErrorMessage());
+            throw new NotInRangeWinningNumException();
         }
     }
 
     public void isBonusNumberDuplicated(Lotto lotto, int num) {
         if (lotto.containNumber(num)) {
-            throw new IllegalArgumentException(ErrorMessage.DUPLICATED_WINNING_NUM.getErrorMessage());
+            throw new DuplicatedLottoNumException();
         }
     }
 

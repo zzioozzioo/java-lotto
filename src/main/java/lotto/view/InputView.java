@@ -1,5 +1,8 @@
 package lotto.view;
 
+import lotto.exception.HasNotValueException;
+import lotto.exception.NotNumericException;
+
 import java.util.List;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
@@ -16,7 +19,7 @@ public class InputView {
                 String input = getUserBuyAmount();
                 validateUserBuyAmount(input);
                 return convert(input);
-            } catch (IllegalArgumentException e) {
+            } catch (HasNotValueException | NotNumericException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -40,7 +43,7 @@ public class InputView {
             try {
                 String input = getLottoWinningNumber();
                 return validateWinningNumber(input);
-            } catch (IllegalArgumentException e) {
+            } catch (HasNotValueException | NotNumericException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -75,7 +78,7 @@ public class InputView {
                 String input = getLottoBonusNumber();
                 validateBonusNumber(input);
                 return convert(input);
-            } catch (IllegalArgumentException e) {
+            } catch (HasNotValueException | NotNumericException e) {
                 System.out.println(e.getMessage());
             }
         }

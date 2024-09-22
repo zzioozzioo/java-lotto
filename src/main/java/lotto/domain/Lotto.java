@@ -1,7 +1,9 @@
 package lotto.domain;
 
 import lotto.constant.ConstNumber;
-import lotto.constant.ErrorMessage;
+import lotto.exception.DuplicatedLottoNumException;
+import lotto.exception.InvalidLengthException;
+import lotto.exception.NotInRangeWinningNumException;
 
 import java.util.List;
 
@@ -18,7 +20,6 @@ public class Lotto {
     }
 
     private void validate(List<Integer> numbers) {
-
         isCorrectLength(numbers);
         isWinningNumberInRange(numbers);
         isWinningNumberDuplicated(numbers);
@@ -26,19 +27,20 @@ public class Lotto {
 
     public void isCorrectLength(List<Integer> list) {
         if (list.size() != ConstNumber.LOTTO_NUM_LENGTH.getNum()) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_CORRECT_LENGTH.getErrorMessage());
+            throw new InvalidLengthException();
         }
     }
 
     public void isWinningNumberInRange(List<Integer> list) {
-        if (!list.stream().allMatch(digit -> digit >= ConstNumber.LOTTO_FIRST_NUM.getNum() && digit <= ConstNumber.LOTTO_LAST_NUM.getNum())) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_IN_RANGE_WINNING_NUM.getErrorMessage());
+        if (!list.stream().allMatch(digit -> digit >= ConstNumber.LOTTO_FIRST_NUM.getNum() &&
+                                    digit <= ConstNumber.LOTTO_LAST_NUM.getNum())) {
+            throw new NotInRangeWinningNumException();
         }
     }
 
     public void isWinningNumberDuplicated(List<Integer> list) {
         if (list.stream().distinct().count() != list.size()) {
-            throw new IllegalArgumentException(ErrorMessage.DUPLICATED_WINNING_NUM.getErrorMessage());
+            throw new DuplicatedLottoNumException();
         }
     }
 
