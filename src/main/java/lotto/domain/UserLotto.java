@@ -2,9 +2,9 @@ package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static camp.nextstep.edu.missionutils.Randoms.pickUniqueNumbersInRange;
+import static lotto.util.Utility.sortLotto;
 
 public class UserLotto {
 
@@ -26,7 +26,4 @@ public class UserLotto {
         return sortLotto(lotto);
     }
 
-    public Lotto sortLotto(Lotto lotto) {
-        return new Lotto(lotto.getNumbers().stream().sorted().collect(Collectors.toList()));
-    }
 }

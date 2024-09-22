@@ -1,6 +1,7 @@
 package lotto.util;
 
 import lotto.constant.ErrorMessage;
+import lotto.domain.Lotto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,4 +36,7 @@ public class Utility {
                 .collect(Collectors.toList());
     }
 
+    public static Lotto sortLotto(Lotto lotto) {
+        return new Lotto(lotto.getNumbers().stream().sorted().collect(Collectors.toList()));
+    }
 }
