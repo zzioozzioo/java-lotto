@@ -25,9 +25,9 @@ public class LottoResult {
         lottoResult.put(Rank.MISS, 0);
     }
 
-    public void calculateLottoResult(List<Lotto> lottoList, Winning winning) {
+    public void calculateLottoResult(UserLotto userLotto, Winning winning) {
 
-        for (Lotto lotto : lottoList) {
+        for (Lotto lotto : userLotto.getAllUserLotto()) {
             Rank rank = winning.matchRank(lotto);
             int count = lottoResult.getOrDefault(rank, 0);
             count++;

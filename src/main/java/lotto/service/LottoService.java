@@ -14,21 +14,6 @@ import static camp.nextstep.edu.missionutils.Randoms.*;
 public class LottoService {
 
     /**
-     * 로또 번호 랜덤 생성 기능
-     */
-    public Lotto getRandomLottoNumber() {
-        Lotto lotto = new Lotto(pickUniqueNumbersInRange(1, 45, 6));
-        return sortLotto(lotto);
-    }
-
-    /**
-     * 로또 번호 오름차순 정렬 기능
-     */
-    public Lotto sortLotto(Lotto lotto) {
-        return new Lotto(lotto.getNumbers().stream().sorted().collect(Collectors.toList()));
-    }
-
-    /**
      * 로또 수량 계산 기능
      */
     public int countHowManyLotto(InputAmount inputAmount) { // 완

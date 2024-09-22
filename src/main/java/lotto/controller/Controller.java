@@ -6,7 +6,6 @@ import lotto.service.LottoService;
 import lotto.view.OutputView;
 import lotto.view.InputView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -26,11 +25,11 @@ public class Controller {
 
     public void playLottoGame() {
         InputAmount amount = getBuyAmountInput();
-        List<Lotto> allUserLotto = getAllUserLottoNumber(amount);
+        UserLotto userLotto = getUserLottoNumber(amount);
         Winning winning = getWinningNumberInput();
 
         LottoResult lottoResult = new LottoResult();
-        lottoResult.calculateLottoResult(allUserLotto, winning);
+        lottoResult.calculateLottoResult(userLotto, winning);
 
         getWinningStatistics(lottoResult, amount);
     }
@@ -40,20 +39,15 @@ public class Controller {
         return new InputAmount(amount);
     }
 
-    public List<Lotto> getAllUserLottoNumber(InputAmount inputAmount) {
+    public UserLotto getUserLottoNumber(InputAmount inputAmount) {
         int quantity = lottoService.countHowManyLotto(inputAmount);
         outputView.printBuyHowManyLotto(quantity);
 
-        List<Lotto> allUserLotto = new ArrayList<>();
-        for (int i = 0; i < quantity; i++) {
-            allUserLotto.add(getOneUserLottoNumber());
-        }
-        displayUserLottoResult(allUserLotto);
-        return allUserLotto;
-    }
+        UserLotto userLotto = new UserLotto();
+        userLotto.generateAllUserLotto(quantity);
 
-    public Lotto getOneUserLottoNumber() { // 완
-        return lottoService.getRandomLottoNumber();
+        displayUserLottoResult(userLotto.getAllUserLotto());
+        return userLotto;
     }
 
     public void displayUserLottoResult(List<Lotto> allUserLotto) {
