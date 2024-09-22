@@ -30,20 +30,22 @@ public class LottoResultTest {
 
     @DisplayName("로또 결과 계산 테스트")
     @Test
-    void CalculateLottResult() {
+    void CalculateLottoResult() {
         //given
         LottoResult lottoResult = new LottoResult();
         HashMap<Rank, Integer> resultMap = lottoResult.getLottoResult();
 
-        List<Lotto> lottoList = List.of(
-                new Lotto(List.of(1, 2, 3, 4, 5, 6)),
-                new Lotto(List.of(1, 2, 3, 4, 5, 7)),
-                new Lotto(List.of(1, 2, 3, 4, 5, 8))
-        );
+        UserLotto userLotto = new UserLotto();
+        List<Lotto> allUserLotto = userLotto.getAllUserLotto();
+
+        allUserLotto.add(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
+        allUserLotto.add(new Lotto(List.of(1, 2, 3, 4, 5, 7)));
+        allUserLotto.add(new Lotto(List.of(1, 2, 3, 4, 5, 8)));
+
         Winning winning = new Winning(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 7);
 
         //when
-        lottoResult.calculateLottoResult(lottoList, winning);
+        lottoResult.calculateLottoResult(userLotto, winning);
 
         //then
         assertEquals(1, resultMap.get(Rank.FIRST));
